@@ -3,8 +3,9 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 100vw;
   background: #fff;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* Hero region (curved card + ticker) */

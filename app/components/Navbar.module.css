@@ -147,7 +147,7 @@
   }
   .links,
   .cta {
-    display: none;
+    display: none !important;
   }
   .burger {
     display: flex;
