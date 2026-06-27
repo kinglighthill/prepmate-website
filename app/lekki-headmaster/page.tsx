@@ -3,8 +3,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Testimonials from "../components/Testimonials";
 import StoreGrid from "../components/StoreGrid";
-import DownloadButton from "../components/DownloadButton";
-import { IMG } from "../data";
+import OSIcon from "../components/OSIcon";
+import { DOWNLOAD_LINKS, IMG } from "../data";
 import styles from "./lekki.module.css";
 
 export const metadata: Metadata = {
@@ -29,43 +29,57 @@ export default function LekkiHeadmasterPage() {
     <main className={styles.main}>
       <Navbar />
 
-      <div className={styles.body}>
-        {/* Hero */}
-        <section className={styles.hero}>
-          <div className={styles.tag}>
+      <section className={styles.hero}>
+        <div className={styles.heroCopy}>
+          <div className={styles.heroTitleRow}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.ticker1} alt="" />
+            <img className={styles.jambLogo} src={IMG.jamb} alt="JAMB logo" />
+            <h1 className={styles.heroTitle}>Lekki Headmaster</h1>
           </div>
-          <h1 className="h2">Lekki Headmaster</h1>
-          <p className="body-lg">
-            Chapter by Chapter Summary and Analysis including 200 Likely
-            Questions, Answers and References
+          <p className={styles.heroText}>
+            Chapter by Chapter Summary and Analysis including
+            <br />
+            200 Likely Questions, Answers and References
           </p>
 
-          <DownloadButton />
+          <a
+            className={styles.heroCta}
+            href={DOWNLOAD_LINKS.mac}
+            target="_blank"
+            rel="noopener"
+          >
+            <OSIcon os="macos" />
+            Download for Mac
+          </a>
 
           <div className={styles.availableRow}>
-            <span>App Available For</span>
+            <span className={styles.availableLabel}>
+              <span className={styles.infoIcon}>i</span>
+              App Available For
+            </span>
             <div className={styles.platforms}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={IMG.platformAndroid} alt="Android" />
+              <span className={styles.platformDivider} />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={IMG.platformApple} alt="Apple" />
+              <span className={styles.platformDivider} />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={IMG.platformWindows} alt="Windows" />
+              <span className={styles.platformDivider} />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={IMG.platformMac} alt="Mac" />
             </div>
           </div>
+        </div>
 
-          <div className={styles.heroImage}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.heroImage} alt="Lekki Headmaster on Prepmate" />
-          </div>
+        <div className={styles.heroImage}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={IMG.lekkiHeroScreen} alt="Lekki Headmaster on Prepmate" />
+        </div>
+      </section>
 
-          <DownloadButton />
-        </section>
-
+      <div className={styles.body}>
         {/* Other Useful Features + portrait */}
         <section className={styles.features}>
           <div className={styles.featuresLeft}>
@@ -87,10 +101,7 @@ export default function LekkiHeadmasterPage() {
 
           <div className={styles.portrait}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=900&q=80&auto=format&fit=crop"
-              alt="Student"
-            />
+            <img src={IMG.lekkiStudent} alt="Student" />
           </div>
         </section>
 

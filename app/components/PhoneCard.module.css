@@ -55,7 +55,7 @@
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 273px;
+  width: min(273px, calc(100% - 24px));
 }
 
 .frame {

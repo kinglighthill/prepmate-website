@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { IMG } from "./data";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -6,9 +7,8 @@ export const metadata: Metadata = {
   description:
     "Join thousands of students using Prepmate to prepare for their exams",
   icons: {
-    icon: "https://framerusercontent.com/images/qEOW7SwcB8Z3dBjmQpf7vKLaLE.png",
-    apple:
-      "https://framerusercontent.com/images/qEOW7SwcB8Z3dBjmQpf7vKLaLE.png",
+    icon: IMG.favicon,
+    apple: IMG.favicon,
   },
   openGraph: {
     type: "website",

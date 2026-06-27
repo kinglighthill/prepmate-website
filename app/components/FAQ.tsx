@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FAQS } from "../data";
+import { FAQS, IMG } from "../data";
 import styles from "./FAQ.module.css";
 
 export default function FAQ() {
@@ -12,10 +12,7 @@ export default function FAQ() {
       <div className={styles.head}>
         <div className={styles.tag}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://framerusercontent.com/images/tDIEGUB77CcjgJtVjPGSsOuOnc.svg?width=20&height=20"
-            alt=""
-          />
+          <img src={IMG.faqTagIcon} alt="" />
           <span>FAQ&apos;s</span>
         </div>
         <h2 className="h2">Frequently Asked Questions</h2>
