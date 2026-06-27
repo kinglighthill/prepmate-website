@@ -1,0 +1,133 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+  max-width: 794px;
+  margin: 0 auto;
+  scroll-margin-top: 150px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--gray-100);
+  border: 1px solid var(--border-light);
+  border-radius: 100px;
+  padding: 8px 12px;
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink-600);
+}
+
+.tag img {
+  width: 20px;
+  height: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--gray-100);
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  padding: 16px 30px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.question {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.qText {
+  flex: 1;
+  font-family: "Urbanist", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.5em;
+  color: var(--ink-800);
+}
+
+.icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--ink-600);
+}
+
+.bar {
+  position: absolute;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.barH {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 2px;
+}
+
+.barV {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  width: 2px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.barVOpen {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.answerWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.answerInner {
+  overflow: hidden;
+}
+
+.answer {
+  padding-top: 24px;
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--ink-600);
+}
+
+@media (max-width: 809px) {
+  .item {
+    padding: 16px 24px;
+  }
+}

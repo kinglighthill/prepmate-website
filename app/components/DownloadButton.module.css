@@ -1,0 +1,30 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 24px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1em;
+  transition: background-color 0.2s ease;
+  width: max-content;
+}
+
+.btn:hover {
+  background: #5052e0;
+}
+
+/* Navbar variant — matches the pill nav CTA */
+.nav {
+  gap: 10px;
+  border-radius: 100px;
+  padding: 16px 20px;
+  font-size: 17px;
+}

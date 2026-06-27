@@ -1,0 +1,88 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 160px 24px 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--gray-100);
+  border: 1px solid var(--border-light);
+  border-radius: 100px;
+  padding: 8px 14px;
+  font-family: "Instrument Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink-600);
+}
+
+.updated {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink-400);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border-light);
+}
+
+.heading {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 130%;
+  color: var(--ink-800);
+}
+
+.para {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 170%;
+  color: var(--ink-500);
+}
+
+@media (max-width: 809px) {
+  .body {
+    padding: 130px 16px 0;
+    gap: 40px;
+  }
+}

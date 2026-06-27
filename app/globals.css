@@ -1,0 +1,182 @@
+/* ===== Fonts (matching original: Urbanist, Inter, Instrument Sans) ===== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600;1,700&family=Instrument+Sans:ital,wght@0,500;0,600;0,700;1,500;1,700&family=Urbanist:ital,wght@0,600;0,700;0,900;1,700;1,900&display=swap");
+
+:root {
+  /* Brand colors from original Framer tokens */
+  --white: #ffffff;
+  --primary: #6466f2;
+  --primary-purple: #923cf6;
+  --primary-hover: #8789ff;
+
+  --border-light: #dde5ed;
+  --border-soft: #e4ebf0;
+  --gray-50: #f8fafc;
+  --gray-100: #f4f7f9;
+  --gray-150: #f1f4f8;
+  --gray-200: #eef1f6;
+  --gray-250: #e3e3e3;
+
+  --ink-900: #0c0c0c;
+  --ink-800: #1c1c1c;
+  --ink-700: #262626;
+  --ink-600: #333333;
+  --ink-500: #4c4c4c;
+  --ink-400: #666666;
+  --ink-350: #797b85;
+
+  --dark-card: #28282c;
+
+  --radius-lg: 50px;
+  --radius-card: 20px;
+  --max-width: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--white);
+  color: var(--ink-700);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ===== Typography presets ===== */
+.h1 {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 700;
+  font-size: 68px;
+  line-height: 120%;
+  color: var(--ink-900);
+  text-align: center;
+}
+
+.h2 {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 700;
+  font-size: 58px;
+  line-height: 120%;
+  color: var(--ink-900);
+  text-align: center;
+}
+
+.h3 {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 150%;
+  color: var(--ink-800);
+}
+
+.body-lg {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 150%;
+  color: var(--ink-400);
+  text-align: center;
+}
+
+/* Inter body text used for proof/feature/footer copy (Framer preset "wh6ug7").
+   18px desktop → 16px tablet → 16px mobile, weight 500, ink-700. */
+.body-md {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+  color: var(--ink-700);
+}
+
+/* === Responsive type steps mirroring the original Framer breakpoints ===
+   Framer uses 1320 / 810 for layout but 1200 for some text presets; we
+   collapse to the two layout breakpoints to stay consistent and simple. */
+@media (max-width: 1319px) {
+  .h1 { font-size: 58px; }
+  .h2 { font-size: 45px; }
+  .h3 { font-size: 22px; }
+  .body-lg { font-size: 18px; }
+  .body-md { font-size: 16px; }
+}
+
+@media (max-width: 809px) {
+  .h1 { font-size: 38px; }
+  .h2 { font-size: 30px; }
+  .h3 { font-size: 20px; }
+  .body-lg { font-size: 18px; }
+  .body-md { font-size: 16px; }
+}
+
+/* ===== Layout ===== */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 24px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1em;
+  transition: background-color 0.2s ease;
+  width: max-content;
+}
+
+.btn-primary:hover {
+  background: #5052e0;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gray-100);
+  border: 1px solid var(--border-light);
+  border-radius: 100px;
+  padding: 8px 12px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink-600);
+}
+
+.tag img,
+.tag svg {
+  width: 20px;
+  height: 20px;
+}

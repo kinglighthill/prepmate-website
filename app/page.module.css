@@ -1,0 +1,51 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Hero region (curved card + ticker) */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+}
+
+/* Main body with vertical rhythm matching original (200px gaps) */
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 200px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+
+@media (max-width: 1319px) {
+  .hero {
+    gap: 50px;
+  }
+  .body {
+    gap: 150px;
+    max-width: 800px;
+    padding: 150px 30px 80px;
+  }
+}
+
+@media (max-width: 809px) {
+  .hero {
+    gap: 40px;
+  }
+  .body {
+    gap: 80px;
+    max-width: 450px;
+    padding: 80px 16px 60px;
+  }
+}
