@@ -6,7 +6,7 @@ import Testimonials from "../components/Testimonials";
 import DownloadButton from "../components/DownloadButton";
 import StoreGrid from "../components/StoreGrid";
 import JsonLd from "../components/JsonLd";
-import { IMG } from "../data";
+import { DOWNLOAD_LINKS, IMG } from "../data";
 import {
   breadcrumbJsonLd,
   makeMetadata,
@@ -15,7 +15,7 @@ import {
 import styles from "../jamb-cbt-practice-download/download.module.css";
 
 const description =
-  "Computer Based Testing Software for UTME preparation with Practice Questions, Notes, Novels and Syllabus";
+  "Prepmate JAMB CBT Practice Software works offline and Contains up to date JAMB Past Questions and Answers, Notes, Novels and Syllabus. Click the button below to download";
 
 const FEATURES = [
   "Up-to-date past and modelled questions",
@@ -29,14 +29,14 @@ const FEATURES = [
 ];
 
 export const metadata: Metadata = makeMetadata({
-  title: "JAMB CBT Practice Software for UTME",
+  title: "Download Offline JAMB CBT Software for PC",
   description,
-  path: "/jamb-cbt-practice",
+  path: "/jamb-cbt-practice-software-download",
   keywords: [
-    "JAMB CBT practice software",
-    "UTME CBT practice",
-    "JAMB past questions and answers",
-    "JAMB mock exam app",
+    "download JAMB CBT software",
+    "offline JAMB CBT software for PC",
+    "JAMB CBT software for Windows",
+    "UTME practice software download",
   ],
 });
 
@@ -65,19 +65,23 @@ function PlatformAvailability() {
   );
 }
 
-export default function JambCbtPracticePage() {
+export default function JambCbtPracticeSoftwareDownloadPage() {
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} ${styles.desktopOnly}`}>
       <JsonLd
         data={[
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
-            { name: "JAMB CBT Practice", path: "/jamb-cbt-practice" },
+            {
+              name: "Download Offline JAMB CBT Software",
+              path: "/jamb-cbt-practice-software-download",
+            },
           ]),
           softwareApplicationJsonLd({
-            name: "Prepmate JAMB CBT Practice Software",
+            name: "Prepmate Offline JAMB CBT Software",
             description,
-            path: "/jamb-cbt-practice",
+            path: "/jamb-cbt-practice-software-download",
+            downloadUrl: DOWNLOAD_LINKS.windows,
             featureList: FEATURES,
           }),
         ]}
@@ -92,14 +96,8 @@ export default function JambCbtPracticePage() {
           </div>
 
           <div className={styles.text}>
-            <h1>2026 JAMB CBT Practice Software</h1>
-            <p>
-              Computer Based Testing Software for <strong>UTME</strong>
-              <br />
-              preparation with <strong>Practice Questions, Notes,</strong>
-              <br />
-              <strong>Novels and Syllabus</strong>
-            </p>
+            <h1>Download Offline JAMB CBT Software</h1>
+            <p>{description}</p>
           </div>
 
           <DownloadButton className={styles.cta} />
@@ -107,7 +105,7 @@ export default function JambCbtPracticePage() {
         </div>
 
         <div className={styles.slider}>
-          <ExploreScreens variant="compact" />
+          <ExploreScreens variant="compact" deviceMode="desktop" />
           <DownloadButton className={styles.sliderCta} />
         </div>
       </section>

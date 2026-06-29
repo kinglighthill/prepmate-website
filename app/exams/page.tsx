@@ -1,19 +1,45 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Testimonials from "../components/Testimonials";
-import { DOWNLOAD_LINKS, EXAMS } from "../data";
+import DownloadButton from "../components/DownloadButton";
+import JsonLd from "../components/JsonLd";
+import { EXAMS } from "../data";
+import {
+  breadcrumbJsonLd,
+  examItemListJsonLd,
+  makeMetadata,
+} from "../seo";
 import styles from "./exams.module.css";
 
-export const metadata: Metadata = {
-  title: "Exams | Prepmate",
-  description:
-    "Explore a growing list of exams currently available on the Prepmate app.",
-};
+const description =
+  "Explore exams supported by Prepmate, including UTME JAMB CBT and WASSCE past questions with practice questions, notes, novels and syllabus.";
+
+export const metadata: Metadata = makeMetadata({
+  title: "Exams Supported by Prepmate",
+  description,
+  path: "/exams",
+  keywords: [
+    "exams supported by Prepmate",
+    "JAMB CBT exam app",
+    "WASSCE exam app",
+    "WAEC and JAMB practice",
+  ],
+});
 
 export default function ExamsPage() {
   return (
     <main className={styles.main}>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Exams", path: "/exams" },
+          ]),
+          examItemListJsonLd(EXAMS),
+        ]}
+      />
       <Navbar />
 
       <div className={styles.body}>
@@ -29,24 +55,19 @@ export default function ExamsPage() {
 
         <section className={styles.grid}>
           {EXAMS.map((exam, i) => (
-            <div key={i} className={styles.card}>
+            <article key={i} className={styles.card}>
+              <Link
+                href={exam.href}
+                className={styles.detailsLink}
+                aria-label={`View ${exam.name} details`}
+              />
               <div className={styles.logoBox}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={exam.logo} alt={exam.name} />
               </div>
               <p className={styles.name}>{exam.name}</p>
-              <a
-                className={styles.download}
-                href={DOWNLOAD_LINKS.googlePlay}
-                target="_blank"
-                rel="noopener"
-              >
-                <svg width="18" height="18" fill="#fff" viewBox="0 0 24 24">
-                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
-                </svg>
-                Download
-              </a>
-            </div>
+              <DownloadButton className={styles.download} />
+            </article>
           ))}
         </section>
 

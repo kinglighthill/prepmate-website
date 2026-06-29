@@ -4,14 +4,30 @@ import Footer from "../components/Footer";
 import Testimonials from "../components/Testimonials";
 import StoreGrid from "../components/StoreGrid";
 import OSIcon from "../components/OSIcon";
+import JsonLd from "../components/JsonLd";
 import { DOWNLOAD_LINKS, IMG } from "../data";
+import {
+  breadcrumbJsonLd,
+  learningResourceJsonLd,
+  makeMetadata,
+} from "../seo";
 import styles from "./lekki.module.css";
 
-export const metadata: Metadata = {
-  title: "Lekki Headmaster | Prepmate",
-  description:
-    "Chapter by Chapter Summary and Analysis including 200 Likely Questions, Answers and References.",
-};
+const description =
+  "Study The Lekki Headmaster on Prepmate with chapter by chapter summary, analysis, likely questions, answers and references for exam preparation.";
+
+export const metadata: Metadata = makeMetadata({
+  title: "Lekki Headmaster Summary, Questions and Answers",
+  description,
+  path: "/lekki-headmaster",
+  keywords: [
+    "Lekki Headmaster summary",
+    "Lekki Headmaster questions and answers",
+    "JAMB literature novel",
+    "Lekki Headmaster analysis",
+  ],
+  image: IMG.lekkiHeroScreen,
+});
 
 const FEATURES = [
   "Up-to-date past and modelled questions",
@@ -27,6 +43,19 @@ const FEATURES = [
 export default function LekkiHeadmasterPage() {
   return (
     <main className={styles.main}>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Lekki Headmaster", path: "/lekki-headmaster" },
+          ]),
+          learningResourceJsonLd({
+            name: "Lekki Headmaster Summary, Questions and Answers",
+            description,
+            path: "/lekki-headmaster",
+          }),
+        ]}
+      />
       <Navbar />
 
       <section className={styles.hero}>

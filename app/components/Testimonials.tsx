@@ -50,7 +50,11 @@ function Row({
   );
 }
 
-export default function Testimonials() {
+export default function Testimonials({
+  downloadClassName = "",
+}: {
+  downloadClassName?: string;
+}) {
   return (
     <section id="testimonials" className={styles.section}>
       <SectionHeader
@@ -65,7 +69,9 @@ export default function Testimonials() {
         <Row reviews={TESTIMONIALS_ROW2} reverse />
       </div>
 
-      <DownloadButton />
+      <DownloadButton
+        className={`${styles.downloadCta} ${downloadClassName}`.trim()}
+      />
     </section>
   );
 }

@@ -52,6 +52,9 @@ export const IMG = {
   screenStudyPastQuestions: "/images/screens/study-past-questions.png",
   screenStudyNotes: "/images/screens/study-notes.png",
   screenLekkiSummary: "/images/screens/lekki-summary.png",
+  screenMobileCbt: "/images/screens/mobile/cbt.avif",
+  screenMobileHome: "/images/screens/mobile/home.avif",
+  screenMobileSubjects: "/images/screens/mobile/subjects.avif",
   screenArrowLeft: "/images/screens/arrow-left.svg",
   screenArrowRight: "/images/screens/arrow-right.svg",
 
@@ -69,9 +72,10 @@ export const IMG = {
   // section icons
   interfaceTagIcon: "/images/section-icons/interface.svg",
   howToUseTagIcon: "/images/section-icons/how-to-use.svg",
+  venlearnCbtLan: "/images/venlearn/cbt-lan-generated.png",
 
   // page-specific images
-  lekkiStudent: "/images/lekki/student.jpg",
+  lekkiStudent: "/images/lekki/boy-student-prepmate.avif",
   lekkiHeroScreen: "/images/lekki/hero-screen.avif",
 };
 
@@ -199,30 +203,17 @@ const EXAM_LOGOS = [
 const EXAM_NAMES = [
   "UTME (JAMB CBT)",
   "WASSCE",
-  "UNILAG Post UTME",
-  "OAU Post UTME",
-  "UI Post UTME",
-  "NDA Post UTME",
-  "UNILORIN Post UTME",
-  "UNIBEN Post UTME",
-  "UNIPORT Post UTME",
-  "DELSU Post UTME",
-  "RSUST Post UTME",
-  "UNICAL Post UTME",
-  "ABSU Post UTME",
-  "UNN Post UTME",
-  "UNIZIK Post UTME",
-  "IMSU Post UTME",
-  "UNIABUJA Post UTME",
-  "ESUT Post UTME",
-  "FUTA Post UTME",
-  "FUTO Post UTME",
-  "FUTMINNA Post UTME",
+];
+
+const EXAM_ROUTES = [
+  "/jamb-cbt-practice",
+  "/wassce-past-questions-answers",
 ];
 
 export const EXAMS = EXAM_NAMES.map((name, i) => ({
   name,
   logo: EXAM_LOGOS[i % EXAM_LOGOS.length],
+  href: EXAM_ROUTES[i],
 }));
 
 export const DOWNLOAD_LINKS = {

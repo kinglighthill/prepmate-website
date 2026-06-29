@@ -175,9 +175,8 @@
 /* Other Useful Features */
 .features {
   display: flex;
-  flex-direction: column;
-  gap: 60px;
-  align-items: flex-start;
+  gap: 48px;
+  align-items: stretch;
   width: 100%;
 }
 
@@ -186,50 +185,53 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 30px;
-  width: 100%;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .pills {
   display: flex;
-  flex-wrap: wrap;
-  align-items: start;
-  justify-content: start;
-  gap: 36px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
   width: 100%;
+  max-width: 100%;
 }
 
 .pill {
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 14px;
+  gap: 6px;
   max-width: 100%;
   background: var(--gray-100);
   border: 1px solid var(--border-light);
   border-radius: 100px;
-  padding: 14px 24px 14px 22px;
+  padding: 8px 16px 8px 10px;
   font-family: "Instrument Sans", sans-serif;
   font-weight: 500;
-  font-size: clamp(24px, 2.5vw, 32px);
-  line-height: 1.2;
+  font-size: 16px;
+  line-height: normal;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
   color: var(--ink-700);
 }
 
 .pill svg {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
 }
 
 .portrait {
-  max-width: 540px;
-  aspect-ratio: 1 / 1.05;
+  flex: 1 1 0;
+  min-width: 0;
   border-radius: 24px;
   overflow: hidden;
   background: var(--gray-100);
-  align-self: center;
+  align-self: stretch;
 }
 
 .portrait img {
@@ -246,37 +248,18 @@
   }
 
   .featuresLeft h2 {
-    font-size: clamp(64px, 6.4vw, 86px);
+    font-size: clamp(56px, 6vw, 78px);
     line-height: 1.05;
   }
 }
 
 @media (max-width: 1100px) {
   .featuresLeft {
-    width: 100%;
+    min-width: 0;
   }
+
   .featuresLeft h2 {
     text-align: left !important;
-  }
-  .pills {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    max-width: 100%;
-  }
-  .pill {
-    gap: 6px;
-    padding: 8px 16px 8px 10px;
-    font-size: 16px;
-    line-height: normal;
-    white-space: normal;
-  }
-  .pill svg {
-    width: 20px;
-    height: 20px;
-  }
-  .portrait {
-    width: 100%;
   }
 }
 
@@ -339,6 +322,23 @@
     width: min(100%, 420px);
     height: min(143px, calc(34vw - 11px));
     margin-top: 0;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 60px;
+  }
+
+  .featuresLeft {
+    width: 100%;
+  }
+
+  .portrait {
+    width: 100%;
+    max-width: 540px;
+    aspect-ratio: 1 / 1.05;
+    align-self: center;
   }
 
   .pill {

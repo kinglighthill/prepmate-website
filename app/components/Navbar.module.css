@@ -135,9 +135,21 @@
   background: var(--gray-100);
 }
 
-.mobileInner :global(.btn) {
+.mobileInner .mobileDownload {
   margin-top: 8px;
   justify-content: center;
+  background: var(--primary);
+  color: #fff;
+}
+
+.mobileInner .mobileDownload svg {
+  color: #fff;
+}
+
+.mobileInner .mobileDownload:hover,
+.mobileInner .mobileDownload:focus-visible {
+  background: #5052e0;
+  color: #fff;
 }
 
 @media (max-width: 1000px) {

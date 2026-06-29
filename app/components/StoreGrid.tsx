@@ -8,9 +8,13 @@ const STORES = [
   { icon: IMG.storeMac, small: "Download for", big: "Mac OS", href: DOWNLOAD_LINKS.mac },
 ];
 
-export default function StoreGrid() {
+export default function StoreGrid({
+  mode = "responsive",
+}: {
+  mode?: "responsive" | "desktop";
+}) {
   return (
-    <div className={styles.stores}>
+    <div className={`${styles.stores} ${mode === "desktop" ? styles.desktopMode : ""}`}>
       {STORES.map((store, i) => (
         <a
           key={i}

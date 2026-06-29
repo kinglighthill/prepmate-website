@@ -16,16 +16,16 @@
   gap: 10px;
   padding: 18px 20px;
   background: var(--gray-50);
-  transition: background 0.2s ease;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
 }
 
-.option:hover {
-  background: var(--gray-100);
-}
-
-/* third option spans full width like the screenshot */
-.option:nth-child(3) {
-  grid-column: 1 / -1;
+.option:hover,
+.option:focus-visible {
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.32);
 }
 
 .icon {
@@ -46,18 +46,36 @@
   font-size: 15px;
   font-weight: 500;
   color: var(--ink-700);
+  transition: color 0.2s ease;
 }
 
 .arrow {
   display: flex;
   align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.arrow svg {
+  transition: fill 0.2s ease;
+}
+
+.option:hover .label,
+.option:focus-visible .label {
+  color: var(--primary);
+}
+
+.option:hover .arrow,
+.option:focus-visible .arrow {
+  transform: translateX(4px);
+}
+
+.option:hover .arrow svg,
+.option:focus-visible .arrow svg {
+  fill: var(--primary);
 }
 
 @media (max-width: 600px) {
   .box {
     grid-template-columns: 1fr;
-  }
-  .option:nth-child(3) {
-    grid-column: auto;
   }
 }

@@ -15,28 +15,28 @@ import {
 import styles from "../jamb-cbt-practice-download/download.module.css";
 
 const description =
-  "Computer Based Testing Software for UTME preparation with Practice Questions, Notes, Novels and Syllabus";
+  "Practice WAEC past questions and answers with Prepmate. Prepare for WASSCE with CBT practice, study notes, novels, syllabus, and detailed results.";
 
 const FEATURES = [
-  "Up-to-date past and modelled questions",
+  "Up-to-date WAEC past questions and answers",
   "CBT practice interface",
   "Built-in timer feature",
   "Concise study notes on various subjects",
   "Detailed results breakdown",
   "Built-in Syllabus",
-  "JAMB and Literature Novels",
+  "WAEC and Literature Novels",
   "CBT mode, Study mode, Mock mode, and Game mode",
 ];
 
 export const metadata: Metadata = makeMetadata({
-  title: "JAMB CBT Practice Software for UTME",
+  title: "WAEC Past Questions and Answers for WASSCE",
   description,
-  path: "/jamb-cbt-practice",
+  path: "/wassce-past-questions-answers",
   keywords: [
-    "JAMB CBT practice software",
-    "UTME CBT practice",
-    "JAMB past questions and answers",
-    "JAMB mock exam app",
+    "WAEC past questions and answers",
+    "WASSCE past questions",
+    "WAEC CBT practice",
+    "WASSCE exam preparation",
   ],
 });
 
@@ -65,19 +65,22 @@ function PlatformAvailability() {
   );
 }
 
-export default function JambCbtPracticePage() {
+export default function WasscePastQuestionsAnswersPage() {
   return (
     <main className={styles.main}>
       <JsonLd
         data={[
           breadcrumbJsonLd([
             { name: "Home", path: "/" },
-            { name: "JAMB CBT Practice", path: "/jamb-cbt-practice" },
+            {
+              name: "WAEC Past Questions and Answers",
+              path: "/wassce-past-questions-answers",
+            },
           ]),
           softwareApplicationJsonLd({
-            name: "Prepmate JAMB CBT Practice Software",
+            name: "Prepmate WASSCE Past Questions and Answers",
             description,
-            path: "/jamb-cbt-practice",
+            path: "/wassce-past-questions-answers",
             featureList: FEATURES,
           }),
         ]}
@@ -88,15 +91,15 @@ export default function JambCbtPracticePage() {
         <div className={styles.heroCopy}>
           <div className={styles.badge}>
             <span className={styles.badgeDot} />
-            UTME 2026
+            WASSCE
           </div>
 
           <div className={styles.text}>
-            <h1>2026 JAMB CBT Practice Software</h1>
+            <h1>WAEC Past Questions and Answers</h1>
             <p>
-              Computer Based Testing Software for <strong>UTME</strong>
+              Prepare for <strong>WASSCE</strong>{" "}
               <br />
-              preparation with <strong>Practice Questions, Notes,</strong>
+              with <strong>Past Questions, Answers, Notes,</strong>
               <br />
               <strong>Novels and Syllabus</strong>
             </p>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { TICKER_LOGOS } from "../data";
 import styles from "./ExamTicker.module.css";
 
@@ -20,12 +21,12 @@ export default function ExamTicker() {
         </ul>
       </div>
 
-      <a className={styles.seeAll} href="#feature">
+      <Link className={styles.seeAll} href="/exams">
         <span>See all Exams</span>
         <svg width="14" height="14" viewBox="0 0 256 256" fill="var(--primary)">
           <path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z" />
         </svg>
-      </a>
+      </Link>
     </div>
   );
 }
