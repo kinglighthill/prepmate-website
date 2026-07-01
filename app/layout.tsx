@@ -95,7 +95,7 @@ function gtag_report_conversion(url) {
         />
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-FCBRBND8KK"
+          src="https://www.googletagmanager.com/gtag/js?id=G-WTTDPT9NLT"
         />
         <script
           dangerouslySetInnerHTML={{
@@ -104,7 +104,7 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-gtag('config', 'G-FCBRBND8KK');
+gtag('config', 'G-WTTDPT9NLT');
 `,
           }}
         />
