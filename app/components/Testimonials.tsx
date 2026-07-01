@@ -50,12 +50,16 @@ function Row({
   );
 }
 
-export default function Testimonials() {
+export default function Testimonials({
+  downloadClassName = "",
+}: {
+  downloadClassName?: string;
+}) {
   return (
     <section id="testimonials" className={styles.section}>
       <SectionHeader
         tag="Our Testimonials"
-        tagIcon="https://framerusercontent.com/images/rs39uhBOlBlpzeVhwp0IwDNDQ.svg?width=20&height=20"
+        tagIcon={IMG.interfaceTagIcon}
         title="User Reviews and Feedback"
         subtitle="See how Prepmate has transformed users' performance and experience"
       />
@@ -65,7 +69,9 @@ export default function Testimonials() {
         <Row reviews={TESTIMONIALS_ROW2} reverse />
       </div>
 
-      <DownloadButton />
+      <DownloadButton
+        className={`${styles.downloadCta} ${downloadClassName}`.trim()}
+      />
     </section>
   );
 }

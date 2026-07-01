@@ -14,6 +14,10 @@
   width: 100%;
 }
 
+.downloadCta {
+  margin-bottom: 56px;
+}
+
 .marquee {
   width: 100%;
   overflow: hidden;
@@ -68,7 +72,7 @@
   border: 1px solid var(--border-light);
   border-radius: 20px;
   overflow: hidden;
-  background: #fff;
+  background: var(--gray-50);
 }
 
 .cardBg {
@@ -87,16 +91,20 @@
   right: 16px;
   width: 22px;
   height: 16px;
-  z-index: 1;
+  z-index: 3;
 }
 
 .head {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 12px;
-  width: 100%;
+  width: calc(100% + 60px);
+  margin: -30px -30px 0;
+  padding: 30px 30px 20px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .avatar {
@@ -148,4 +156,10 @@
   font-size: 16px;
   line-height: 150%;
   color: var(--ink-600);
+}
+
+@media (max-width: 809px) {
+  .downloadCta {
+    margin-bottom: 36px;
+  }
 }

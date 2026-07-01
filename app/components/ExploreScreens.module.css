@@ -6,30 +6,83 @@
   width: 100%;
 }
 
+.compact {
+  gap: 0;
+}
+
+.carousel {
+  position: relative;
+  width: min(1280px, calc(100vw - 48px));
+  overflow: hidden;
+  padding: 10px 0 26px;
+}
+
+.compact .carousel {
+  width: min(1540px, calc(100vw + 320px));
+  padding: 0;
+}
+
 .laptop {
   position: relative;
-  width: 60%;
-  max-width: 720px;
-  aspect-ratio: 1.754;
+  --preview-opacity: 0.58;
+  width: min(980px, 78vw);
+  aspect-ratio: 2048 / 1257;
+  margin: 0 auto;
+}
+
+.compact .laptop {
+  width: min(1000px, 76vw);
 }
 
 .device {
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
   width: 100%;
   height: 100%;
   object-fit: contain;
   pointer-events: none;
 }
 
+.mobileFrame {
+  display: none;
+}
+
+.preview {
+  position: absolute;
+  top: 16%;
+  z-index: 1;
+  width: 58%;
+  height: 68%;
+  object-fit: cover;
+  object-position: left top;
+  border: 1px solid rgba(221, 229, 237, 0.9);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 20px 42px rgba(35, 43, 62, 0.14);
+  opacity: var(--preview-opacity);
+  filter: saturate(0.92);
+  pointer-events: none;
+  animation: previewIn 620ms ease both;
+}
+
+.previewLeft {
+  left: -36%;
+  transform: scale(0.88) perspective(900px) rotateY(8deg);
+}
+
+.previewRight {
+  right: -36%;
+  transform: scale(0.88) perspective(900px) rotateY(-8deg);
+}
+
 .screenArea {
   position: absolute;
-  top: 46%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  width: 83%;
-  aspect-ratio: 1.534;
+  top: 3.42%;
+  left: 9.33%;
+  z-index: 2;
+  width: 81.4%;
+  height: 86.08%;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -39,21 +92,22 @@
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  animation: screenIn 620ms ease both;
 }
 
 .arrow {
   position: absolute;
-  top: 50%;
+  top: 46.46%;
   transform: translateY(-50%);
-  z-index: 3;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 42px;
+  height: 42px;
   border: none;
   border-radius: 40px;
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.14);
   cursor: pointer;
   transition: background 0.2s ease;
 }
@@ -68,21 +122,157 @@
 }
 
 .left {
-  left: 12px;
+  left: calc(9.33% + 12px);
 }
 
 .right {
-  right: 12px;
+  right: calc(9.27% + 12px);
+}
+
+@keyframes screenIn {
+  from {
+    opacity: 0.35;
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes previewIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: var(--preview-opacity);
+  }
 }
 
 @media (max-width: 1319px) {
+  .carousel {
+    width: min(1120px, calc(100vw - 48px));
+  }
+
   .laptop {
-    width: 100%;
+    width: min(900px, 80vw);
   }
 }
 
 @media (max-width: 809px) {
+  .carousel {
+    width: min(520px, calc(100vw - 32px));
+    overflow: hidden;
+    padding: 10px 0 22px;
+  }
+
+  .compact .carousel {
+    width: min(520px, calc(100vw - 32px));
+    padding: 10px 0 22px;
+  }
+
   .laptop {
-    aspect-ratio: 1.5;
+    --preview-opacity: 0.42;
+    width: min(280px, 62vw);
+    aspect-ratio: 364 / 735;
+  }
+
+  .compact .laptop {
+    width: min(280px, 62vw);
+    aspect-ratio: 364 / 735;
+  }
+
+  .preview {
+    top: 6%;
+    width: 86%;
+    height: 88%;
+    border-radius: 26px;
+    object-position: center top;
+  }
+
+  .previewLeft {
+    left: -66%;
+  }
+
+  .previewRight {
+    right: -66%;
+  }
+
+  .mobileSlider .device {
+    display: none;
+  }
+
+  .mobileSlider .mobileFrame {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .mobileSlider .screenArea {
+    inset: 1.65% 3.85%;
+    z-index: 3;
+    width: auto;
+    height: auto;
+    border: none;
+    border-radius: 30px;
+    box-shadow: none;
+  }
+
+  .mobileSlider .screen {
+    object-position: center top;
+  }
+
+  .mobileSlider .arrow {
+    top: 50%;
+    width: 38px;
+    height: 38px;
+  }
+
+  .mobileSlider .left {
+    left: -18px;
+  }
+
+  .mobileSlider .right {
+    right: -18px;
+  }
+
+  .desktopMode .carousel {
+    width: min(1540px, calc(100vw + 320px));
+    padding: 0;
+  }
+
+  .desktopMode .laptop {
+    --preview-opacity: 0.58;
+    width: min(1000px, 76vw);
+    aspect-ratio: 2048 / 1257;
+  }
+
+  .desktopMode .preview {
+    top: 16%;
+    width: 58%;
+    height: 68%;
+    border: 1px solid rgba(221, 229, 237, 0.9);
+    border-radius: 18px;
+    object-position: left top;
+  }
+
+  .desktopMode .previewLeft {
+    left: -36%;
+  }
+
+  .desktopMode .previewRight {
+    right: -36%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen,
+  .preview {
+    animation: none;
   }
 }

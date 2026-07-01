@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
+import JsonLd from "../components/JsonLd";
 import LegalPage, { LegalSection } from "../components/LegalPage";
+import { makeMetadata, webPageJsonLd } from "../seo";
 
-export const metadata: Metadata = {
-  title: "Terms Of Use | Prepmate",
-  description: "Prepmate Terms of Use and Conditions.",
-};
+const description =
+  "Read the Prepmate Terms of Use for Veracone Technologies Ltd. products, services, accounts, intellectual property and user responsibilities.";
+
+export const metadata: Metadata = makeMetadata({
+  title: "Terms Of Use",
+  description,
+  path: "/terms",
+  keywords: ["Prepmate terms of use", "Veracone terms"],
+});
 
 const SECTIONS: LegalSection[] = [
   {
@@ -75,12 +82,21 @@ const SECTIONS: LegalSection[] = [
 
 export default function TermsPage() {
   return (
-    <LegalPage
-      tag="Terms"
-      title="Terms Of Use"
-      subtitle="Welcome to the Prepmate Africa website. These terms outline the rules and regulations for the use of Prepmate's services."
-      updated="Last Updated on October, 24, 2024"
-      sections={SECTIONS}
-    />
+    <>
+      <JsonLd
+        data={webPageJsonLd({
+          name: "Prepmate Terms Of Use",
+          description,
+          path: "/terms",
+        })}
+      />
+      <LegalPage
+        tag="Terms"
+        title="Terms Of Use"
+        subtitle="Welcome to the Prepmate Africa website. These terms outline the rules and regulations for the use of Prepmate's services."
+        updated="Last Updated on October, 24, 2024"
+        sections={SECTIONS}
+      />
+    </>
   );
 }

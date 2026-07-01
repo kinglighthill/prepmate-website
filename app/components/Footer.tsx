@@ -24,7 +24,9 @@ export default function Footer() {
 
         <div className={styles.links}>
           <Link href="/exams">Exams</Link>
-          <Link href="/jamb-cbt-practice">UTME 2026</Link>
+          <Link href="/jamb-cbt-practice">UTME 2027</Link>
+          <Link href="/wassce-past-questions-answers">WASSCE</Link>
+          <Link href="/cbt-for-schools">CBT for Schools</Link>
           <Link href="/lekki-headmaster">Lekki Headmaster</Link>
         </div>
 

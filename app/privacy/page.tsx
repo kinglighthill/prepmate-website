@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
+import JsonLd from "../components/JsonLd";
 import LegalPage, { LegalSection } from "../components/LegalPage";
+import { makeMetadata, webPageJsonLd } from "../seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | Prepmate",
-  description: "Prepmate Privacy Policy.",
-};
+const description =
+  "Read the Prepmate Privacy Policy to understand how Veracone Technologies Ltd. collects, uses and protects personal information.";
+
+export const metadata: Metadata = makeMetadata({
+  title: "Privacy Policy",
+  description,
+  path: "/privacy",
+  keywords: ["Prepmate privacy policy", "Veracone privacy"],
+});
 
 const SECTIONS: LegalSection[] = [
   {
@@ -59,12 +66,21 @@ const SECTIONS: LegalSection[] = [
 
 export default function PrivacyPage() {
   return (
-    <LegalPage
-      tag="Privacy Policy"
-      title="Our Privacy Policy"
-      subtitle="Our Privacy Policy outlines how we collect, use, and protect your personal information. Your privacy and security are our priorities."
-      updated="Last Updated on October, 24, 2024"
-      sections={SECTIONS}
-    />
+    <>
+      <JsonLd
+        data={webPageJsonLd({
+          name: "Prepmate Privacy Policy",
+          description,
+          path: "/privacy",
+        })}
+      />
+      <LegalPage
+        tag="Privacy Policy"
+        title="Our Privacy Policy"
+        subtitle="Our Privacy Policy outlines how we collect, use, and protect your personal information. Your privacy and security are our priorities."
+        updated="Last Updated on October, 24, 2024"
+        sections={SECTIONS}
+      />
+    </>
   );
 }

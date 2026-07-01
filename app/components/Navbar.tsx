@@ -7,10 +7,10 @@ import DownloadButton from "./DownloadButton";
 import styles from "./Navbar.module.css";
 
 const LINKS = [
-  { href: "/", label: "Home" },
   { href: "/exams", label: "Exams" },
-  { href: "/jamb-cbt-practice", label: "UTME 2026" },
-  { href: "/lekki-headmaster", label: "Lekki Headmaster" },
+  { href: "/jamb-cbt-practice", label: "UTME 2027" },
+  { href: "/jamb-cbt-practice-software-download", label: "Download for PC" },
+  { href: "/cbt-for-schools", label: "CBT for Schools" },
 ];
 
 export default function Navbar() {
@@ -55,7 +55,7 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <DownloadButton />
+          <DownloadButton className={styles.mobileDownload} label="Download" />
         </div>
       </div>
     </nav>

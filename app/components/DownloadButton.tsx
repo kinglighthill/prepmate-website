@@ -16,9 +16,11 @@ import styles from "./DownloadButton.module.css";
 export default function DownloadButton({
   variant = "primary",
   className = "",
+  label: labelOverride,
 }: {
   variant?: "primary" | "nav";
   className?: string;
+  label?: string;
 }) {
   const os = useOS();
   const { label, href } = OS_DOWNLOAD[os];
@@ -31,7 +33,7 @@ export default function DownloadButton({
       rel="noopener"
     >
       <OSIcon os={os} />
-      {label}
+      {labelOverride ?? label}
     </a>
   );
 }
