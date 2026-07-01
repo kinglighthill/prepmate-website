@@ -1,46 +1,36 @@
-# Prepmate Website (Next.js replica)
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A pixel-faithful Next.js replica of [myprepmate.com](https://www.myprepmate.com/), rebuilt with the App Router, the original brand colors, fonts (Urbanist / Inter / Instrument Sans), and assets.
+## Getting Started
 
-## Stack
-- Next.js 15 (App Router)
-- React 19
-- CSS Modules (no UI framework — styling matches the original Framer design tokens)
-
-## Run
+First, run the development server:
 
 ```bash
-npm install
-npm run dev      # http://localhost:3000
-npm run build    # production build
-npm start        # serve production build
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Structure
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```
-app/
-  layout.tsx          # metadata, favicon, fonts
-  globals.css         # brand tokens, typography, buttons
-  page.tsx            # section composition + vertical rhythm
-  data.ts             # image URLs + copy extracted from the original
-  components/
-    Navbar            # fixed pill navbar
-    Hero              # curved hero card, exam badges, download CTA, devices
-    ExamTicker        # "20+ Exams Supported" marquee
-    Proof             # 3 stat cards
-    Features          # feature pills + phone mockup
-    HowToUse          # 3-step phone card grid
-    Testimonials      # two-row review marquee (opposite directions)
-    ExploreScreens    # laptop slideshow (client)
-    FAQ               # accordion (client)
-    CTA               # store download buttons
-    Footer
-    PhoneCard / SectionHeader / DownloadButton  # shared
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Images are served from `framerusercontent.com` (the original CDN) and whitelisted in `next.config.mjs`.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Brand tokens
-- Primary purple `#6466f2`, gradient accent `#923cf6`
-- Inks `#0c0c0c → #666`, surfaces `#f8fafc / #f4f7f9 / #f1f4f8`
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
