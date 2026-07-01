@@ -36,7 +36,7 @@ export default function Footer() {
             <Link href="/privacy">Privacy Policy</Link>
           </div>
           <p className={styles.copyright}>
-            Copyright 2025 Veracone Technologies Ltd. All Rights reserved
+           © {new Date().getFullYear()} Veracone Technologies Ltd. All rights reserved.
           </p>
         </div>
       </div>
