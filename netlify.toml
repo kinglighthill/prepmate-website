@@ -2,23 +2,8 @@
   command = "npm run build"
   publish = ".next"
 
-# Canonical host: force the apex domain to the www subdomain (301).
-# Keeps Google indexing ONE version and consolidates ranking signals.
-# Visitors are auto-forwarded - the site still loads from every address.
-[[redirects]]
-  from = "https://myprepmate.com/*"
-  to = "https://www.myprepmate.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://myprepmate.com/*"
-  to = "https://www.myprepmate.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://www.myprepmate.com/*"
-  to = "https://www.myprepmate.com/:splat"
-  status = 301
-  force = true
+# NOTE: apex -> www and http -> https redirects are handled automatically by
+# Netlify when "www.myprepmate.com" is set as the Primary domain in the
+# dashboard (Domain management). Do NOT add manual host redirects here — a
+# force=true http->https rule loops forever because Netlify terminates TLS at
+# the edge and forwards to the site over HTTP (ERR_TOO_MANY_REDIRECTS).
