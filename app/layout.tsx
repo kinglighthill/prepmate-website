@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: absoluteUrl("/"),
   },
+  verification: {
+    google: "9yr2m1Ps1oifLyys7eybqeuJ7HFKh9iucIKehOmmxAM",
+  },
   icons: {
     icon: IMG.favicon,
     apple: IMG.favicon,
