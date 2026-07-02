@@ -1,0 +1,58 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lead {
+  max-width: 760px;
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-500);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  padding: 10px 16px;
+  border-radius: 100px;
+  background: var(--gray-50);
+  border: 1px solid var(--border-light);
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-700);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.chip:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.allLink {
+  align-self: flex-start;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.allLink:hover {
+  text-decoration: underline;
+}

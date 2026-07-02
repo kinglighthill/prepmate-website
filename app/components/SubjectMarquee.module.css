@@ -1,0 +1,85 @@
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    #000 8%,
+    #000 92%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    #000 8%,
+    #000 92%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: scrollLeft 40s linear infinite;
+}
+
+.reverse {
+  animation: scrollRight 40s linear infinite;
+}
+
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% / 3)); }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(calc(-100% / 3)); }
+  to { transform: translateX(0); }
+}
+
+.chip {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 9px 16px;
+  border-radius: 100px;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-600);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.chip:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .reverse {
+    animation: none;
+  }
+  .marquee {
+    overflow-x: auto;
+  }
+}

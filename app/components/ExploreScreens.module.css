@@ -18,7 +18,7 @@
 }
 
 .compact .carousel {
-  width: min(1540px, calc(100vw + 320px));
+  width: min(1200px, calc(100vw - 48px));
   padding: 0;
 }
 
@@ -31,7 +31,15 @@
 }
 
 .compact .laptop {
-  width: min(1000px, 76vw);
+  width: min(820px, 62vw);
+}
+
+.compact .previewLeft {
+  left: -30%;
+}
+
+.compact .previewRight {
+  right: -30%;
 }
 
 .device {
@@ -150,11 +158,13 @@
 }
 
 @media (max-width: 1319px) {
-  .carousel {
+  .carousel,
+  .compact .carousel {
     width: min(1120px, calc(100vw - 48px));
   }
 
-  .laptop {
+  .laptop,
+  .compact .laptop {
     width: min(900px, 80vw);
   }
 }

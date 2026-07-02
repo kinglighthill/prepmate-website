@@ -165,3 +165,51 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Browse-by-subject block (links into pSEO hubs) */
+.browse {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.browseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 809px) {
+  .browseGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.browseExam {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  background: var(--gray-50);
+  overflow: hidden;
+}
+
+.browseHead {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink-800);
+  transition: color 0.2s ease;
+}
+
+.browseHead:hover {
+  color: var(--primary);
+}

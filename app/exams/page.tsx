@@ -5,8 +5,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Testimonials from "../components/Testimonials";
 import DownloadButton from "../components/DownloadButton";
+import SubjectMarquee from "../components/SubjectMarquee";
 import JsonLd from "../components/JsonLd";
 import { EXAMS } from "../data";
+import { allExamSlugs, getExam, subjectsForExam } from "../pseo";
 import {
   breadcrumbJsonLd,
   examItemListJsonLd,
@@ -83,6 +85,27 @@ export default function ExamsPage() {
               <DownloadButton className={styles.download} />
             </article>
           ))}
+        </section>
+
+        <section className={styles.browse} aria-labelledby="browse-title">
+          <h2 id="browse-title" className="h2">
+            Browse subjects, notes, past questions &amp; syllabus
+          </h2>
+          <div className={styles.browseGrid}>
+            {allExamSlugs().map((slug) => {
+              const exam = getExam(slug);
+              const subjects = subjectsForExam(slug);
+              if (!exam) return null;
+              return (
+                <div key={slug} className={styles.browseExam}>
+                  <Link href={`/${slug}`} className={styles.browseHead}>
+                    {exam.name} Subjects →
+                  </Link>
+                  <SubjectMarquee examSlug={slug} subjects={subjects} />
+                </div>
+              );
+            })}
+          </div>
         </section>
 
         <Testimonials />
