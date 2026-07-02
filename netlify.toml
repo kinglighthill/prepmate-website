@@ -2,8 +2,8 @@
   command = "npm run build"
   publish = ".next"
 
-# NOTE: apex -> www and http -> https redirects are handled automatically by
-# Netlify when "www.myprepmate.com" is set as the Primary domain in the
+# NOTE: Canonical host is the non-www apex (myprepmate.com); Netlify redirects
+# www -> apex automatically when "myprepmate.com" is the Primary domain in the
 # dashboard (Domain management). Do NOT add manual host redirects here — a
 # force=true http->https rule loops forever because Netlify terminates TLS at
 # the edge and forwards to the site over HTTP (ERR_TOO_MANY_REDIRECTS).

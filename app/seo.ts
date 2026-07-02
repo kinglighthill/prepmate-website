@@ -3,7 +3,7 @@ import { DOWNLOAD_LINKS, FAQS, IMG } from "./data";
 
 export const SITE_NAME = "Prepmate";
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.myprepmate.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://myprepmate.com"
 ).replace(/\/$/, "");
 
 export const DEFAULT_DESCRIPTION =
