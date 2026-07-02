@@ -1,0 +1,83 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 120px 24px 60px;
+  text-align: center;
+  background: #fff;
+}
+
+.logo {
+  display: block;
+  width: 200px;
+  max-width: 55vw;
+  margin-bottom: 32px;
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.code {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 900;
+  font-size: 140px;
+  line-height: 1;
+  color: var(--ink-900);
+  letter-spacing: -0.02em;
+}
+
+.title {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 120%;
+  color: var(--ink-900);
+  margin-top: 24px;
+}
+
+.text {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 150%;
+  color: var(--ink-400);
+  max-width: 520px;
+  margin-top: 16px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+  padding: 15px 32px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 100px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+.cta:hover {
+  background: #5052e0;
+}
+
+@media (max-width: 809px) {
+  .code {
+    font-size: 96px;
+  }
+  .title {
+    font-size: 26px;
+  }
+  .text {
+    font-size: 16px;
+  }
+}
