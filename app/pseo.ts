@@ -32,10 +32,20 @@ export interface PseoNovelOutlineItem {
 export interface PseoNovel {
   title: string;
   slug: string;
+  genre?: string;
   subjectSlug: string;
   examSlugs: string[];
-  practiceQuestions?: { count: number; basis: string };
+  practiceQuestions?: { count?: number; maxCount?: number; basis: string };
   outline?: PseoNovelOutlineItem[];
+}
+
+export function novelQuestionLabel(novel: PseoNovel): string | null {
+  const pq = novel.practiceQuestions;
+  if (!pq) return null;
+  if (typeof pq.count === "number") return `${pq.count} practice questions`;
+  if (typeof pq.maxCount === "number")
+    return `up to ${pq.maxCount} practice questions`;
+  return null;
 }
 
 export interface PseoPage {
@@ -67,6 +77,7 @@ interface Dataset {
   subjects: Record<string, PseoSubject>;
   features: Record<string, PseoFeature>;
   novels: Record<string, PseoNovel>;
+  literatureSets: Record<string, Record<string, string[]>>;
   pages: PseoPage[];
   indexes: { byRoute: Record<string, number> };
   templates: {
@@ -134,6 +145,7 @@ export interface PseoView {
   topicGroups: PseoTopicGroup[];
   novels: PseoNovel[];
   outlineType: string;
+  linkTexts: boolean;
 }
 
 export function buildView(page: PseoPage): PseoView {
@@ -159,12 +171,16 @@ export function buildView(page: PseoPage): PseoView {
 
   const topicGroups =
     page.content.outlineType === "topics" ? subject.topicGroups ?? [] : [];
-  const novels = (page.content.novelRefs ?? [])
-    .map((ref) => {
-      const slug = ref.split(".")[1];
-      return data.novels[slug];
-    })
-    .filter(Boolean);
+
+  const isLiterature =
+    page.params.subjectSlug === "literature-in-english" &&
+    page.content.outlineType === "novels";
+
+  const novels = isLiterature
+    ? literatureTextsForExam(page.params.examSlug)
+    : (page.content.novelRefs ?? [])
+        .map((ref) => data.novels[ref.split(".")[1]])
+        .filter(Boolean);
 
   return {
     page,
@@ -185,6 +201,7 @@ export function buildView(page: PseoPage): PseoView {
     topicGroups,
     novels,
     outlineType: page.content.outlineType,
+    linkTexts: isLiterature,
   };
 }
 
@@ -249,4 +266,43 @@ export function allExamSubjectPairs(): Array<{
     });
   }
   return out;
+}
+
+const LITERATURE_SUBJECT = "literature-in-english";
+
+export function getNovel(slug: string): PseoNovel | null {
+  return data.novels[slug] ?? null;
+}
+
+export function literatureTextsForExam(examSlug: string): PseoNovel[] {
+  const slugs = data.literatureSets?.[examSlug]?.[LITERATURE_SUBJECT] ?? [];
+  return slugs.map((s) => data.novels[s]).filter(Boolean);
+}
+
+export function examHasLiterature(examSlug: string): boolean {
+  return (
+    getPage(examSlug, LITERATURE_SUBJECT, "novels") !== null &&
+    literatureTextsForExam(examSlug).length > 0
+  );
+}
+
+export function allLiteratureTextParams(): Array<{
+  examSlug: string;
+  textSlug: string;
+}> {
+  const out: Array<{ examSlug: string; textSlug: string }> = [];
+  for (const examSlug of Object.keys(data.literatureSets ?? {})) {
+    if (!examHasLiterature(examSlug)) continue;
+    for (const text of literatureTextsForExam(examSlug)) {
+      out.push({ examSlug, textSlug: text.slug });
+    }
+  }
+  return out;
+}
+
+export function getLiteratureText(
+  examSlug: string,
+  textSlug: string
+): PseoNovel | null {
+  return literatureTextsForExam(examSlug).find((t) => t.slug === textSlug) ?? null;
 }

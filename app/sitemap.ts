@@ -1,6 +1,11 @@
 import type { MetadataRoute } from "next";
 import { CANONICAL_ROUTES, absoluteUrl } from "./seo";
-import { allExamSlugs, allExamSubjectPairs, allPages } from "./pseo";
+import {
+  allExamSlugs,
+  allExamSubjectPairs,
+  allLiteratureTextParams,
+  allPages,
+} from "./pseo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -39,5 +44,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...examHubs, ...subjectHubs, ...leafPages];
+  // Programmatic SEO: per-text literature pages
+  const literatureTexts: MetadataRoute.Sitemap = allLiteratureTextParams().map(
+    ({ examSlug, textSlug }) => ({
+      url: absoluteUrl(
+        `/${examSlug}/literature-in-english/novels/${textSlug}`
+      ),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    })
+  );
+
+  return [
+    ...staticRoutes,
+    ...examHubs,
+    ...subjectHubs,
+    ...leafPages,
+    ...literatureTexts,
+  ];
 }

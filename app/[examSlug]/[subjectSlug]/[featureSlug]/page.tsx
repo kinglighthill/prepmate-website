@@ -5,7 +5,7 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import DownloadButton from "../../../components/DownloadButton";
 import JsonLd from "../../../components/JsonLd";
-import { allPages, buildView, getPage } from "../../../pseo";
+import { allPages, buildView, getPage, novelQuestionLabel } from "../../../pseo";
 import { breadcrumbJsonLd, faqJsonLd, makeMetadata } from "../../../seo";
 import styles from "./pseo.module.css";
 
@@ -143,25 +143,48 @@ export default async function PseoLeafPage({
             <h2 id="novels-title" className="h2" style={{ textAlign: "left" }}>
               Prescribed text{view.novels.length > 1 ? "s" : ""}
             </h2>
-            <div className={styles.groups}>
-              {view.novels.map((novel) => (
-                <div key={novel.slug} className={styles.group}>
-                  <h3 className={styles.groupTitle}>
-                    {novel.title}
-                    {novel.practiceQuestions
-                      ? ` — ${novel.practiceQuestions.count} practice questions`
-                      : ""}
-                  </h3>
-                  {novel.outline && (
-                    <ul className={styles.topicList}>
-                      {novel.outline.map((item) => (
-                        <li key={item.slug}>{item.title}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
-            </div>
+
+            {view.linkTexts ? (
+              <div className={styles.textGrid}>
+                {view.novels.map((novel) => {
+                  const label = novelQuestionLabel(novel);
+                  return (
+                    <Link
+                      key={novel.slug}
+                      href={`${page.route}/${novel.slug}`}
+                      className={styles.textCard}
+                    >
+                      <span className={styles.textTitle}>{novel.title}</span>
+                      {label && (
+                        <span className={styles.textMeta}>{label}</span>
+                      )}
+                      <span className={styles.textLink}>Study text →</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className={styles.groups}>
+                {view.novels.map((novel) => {
+                  const label = novelQuestionLabel(novel);
+                  return (
+                    <div key={novel.slug} className={styles.group}>
+                      <h3 className={styles.groupTitle}>
+                        {novel.title}
+                        {label ? ` — ${label}` : ""}
+                      </h3>
+                      {novel.outline && (
+                        <ul className={styles.topicList}>
+                          {novel.outline.map((item) => (
+                            <li key={item.slug}>{item.title}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </section>
         )}
 

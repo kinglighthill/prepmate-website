@@ -6,6 +6,7 @@ import Testimonials from "../components/Testimonials";
 import DownloadButton from "../components/DownloadButton";
 import FeaturesSection from "../components/FeaturesSection";
 import SubjectLinks from "../components/SubjectLinks";
+import JambSeoContent from "../components/JambSeoContent";
 import JsonLd from "../components/JsonLd";
 import { IMG } from "../data";
 import {
@@ -115,6 +116,8 @@ export default function JambCbtPracticePage() {
 
       <div className={styles.body}>
         <FeaturesSection features={FEATURES} />
+
+        <JambSeoContent />
 
         <SubjectLinks examSlug="jamb" />
 
