@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { IMG } from "../data";
 import DownloadButton from "./DownloadButton";
 import styles from "./Navbar.module.css";
@@ -20,8 +21,15 @@ export default function Navbar() {
     <nav className={styles.nav}>
       <div className={styles.bar}>
         <Link href="/" className={styles.logo} aria-label="Prepmate home">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={IMG.logo} alt="Prepmate" />
+          <Image
+            src={IMG.logo}
+            alt="Prepmate"
+            width={960}
+            height={173}
+            priority
+            sizes="224px"
+            style={{ width: "100%", height: "auto" }}
+          />
         </Link>
 
         <div className={styles.links}>

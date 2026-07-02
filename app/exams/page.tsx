@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Testimonials from "../components/Testimonials";
@@ -62,8 +63,21 @@ export default function ExamsPage() {
                 aria-label={`View ${exam.name} details`}
               />
               <div className={styles.logoBox}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={exam.logo} alt={exam.name} />
+                <Image
+                  src={exam.logo}
+                  alt={`${exam.name} logo`}
+                  width={110}
+                  height={110}
+                  sizes="110px"
+                  loading={i < 8 ? "eager" : "lazy"}
+                  style={{
+                    width: "auto",
+                    height: "auto",
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "contain",
+                  }}
+                />
               </div>
               <p className={styles.name}>{exam.name}</p>
               <DownloadButton className={styles.download} />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Testimonials from "../components/Testimonials";
@@ -103,8 +104,15 @@ export default function LekkiHeadmasterPage() {
         </div>
 
         <div className={styles.heroImage}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={IMG.lekkiHeroScreen} alt="Lekki Headmaster on Prepmate" />
+          <Image
+            src={IMG.lekkiHeroScreen}
+            alt="Lekki Headmaster on Prepmate"
+            width={2919}
+            height={1983}
+            priority
+            sizes="(max-width: 809px) 100vw, 900px"
+            style={{ width: "100%", height: "auto", objectFit: "contain" }}
+          />
         </div>
       </section>
 
@@ -129,8 +137,13 @@ export default function LekkiHeadmasterPage() {
           </div>
 
           <div className={styles.portrait}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.lekkiStudent} alt="Student" />
+            <Image
+              src={IMG.lekkiStudent}
+              alt="Student preparing for exams with Prepmate"
+              fill
+              sizes="(max-width: 809px) 100vw, 50vw"
+              style={{ objectFit: "cover" }}
+            />
           </div>
         </section>
 

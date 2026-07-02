@@ -4,7 +4,6 @@ import JsonLd from "./components/JsonLd";
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_KEYWORDS,
-  DEFAULT_OG_IMAGE,
   SITE_NAME,
   SITE_URL,
   absoluteUrl,
@@ -39,18 +38,12 @@ export const metadata: Metadata = {
     url: absoluteUrl("/"),
     title: "Prepmate - JAMB CBT, WAEC Past Questions and Exam Prep App",
     description: DEFAULT_DESCRIPTION,
-    images: [
-      {
-        url: absoluteUrl(DEFAULT_OG_IMAGE),
-        alt: "Prepmate exam preparation app",
-      },
-    ],
+    // OG image supplied by the app/opengraph-image.tsx file convention.
   },
   twitter: {
     card: "summary_large_image",
     title: "Prepmate - JAMB CBT, WAEC Past Questions and Exam Prep App",
     description: DEFAULT_DESCRIPTION,
-    images: [absoluteUrl(DEFAULT_OG_IMAGE)],
   },
   robots: {
     index: true,
@@ -71,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en-NG" data-scroll-behavior="smooth">
       <head>
         <script
           dangerouslySetInnerHTML={{

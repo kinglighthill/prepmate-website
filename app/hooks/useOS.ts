@@ -29,7 +29,7 @@ function detectOS(): OS {
     "";
   const haystack = `${ua} ${platform}`.toLowerCase();
 
-  // iOS — iPhone/iPod, plus iPadOS (which reports as "Macintosh" but is touch)
+  // iOS - iPhone/iPod, plus iPadOS (which reports as "Macintosh" but is touch)
   const isIPadOS =
     /macintosh/.test(haystack) &&
     typeof navigator.maxTouchPoints === "number" &&

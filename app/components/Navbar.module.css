@@ -57,7 +57,7 @@
 /* Visual styling lives in DownloadButton's "nav" variant;
    this class only carries the responsive hide rule below. */
 
-/* Hamburger — hidden on desktop */
+/* Hamburger - hidden on desktop */
 .burger {
   display: none;
   flex-direction: column;

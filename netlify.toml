@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# Canonical host: force the apex domain to the www subdomain (301).
+# Keeps Google indexing ONE version and consolidates ranking signals.
+# Visitors are auto-forwarded - the site still loads from every address.
+[[redirects]]
+  from = "https://myprepmate.com/*"
+  to = "https://www.myprepmate.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://myprepmate.com/*"
+  to = "https://www.myprepmate.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.myprepmate.com/*"
+  to = "https://www.myprepmate.com/:splat"
+  status = 301
+  force = true

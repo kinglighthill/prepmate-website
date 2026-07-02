@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { IMG } from "../data";
 import DownloadButton from "./DownloadButton";
 import styles from "./Hero.module.css";
@@ -9,8 +10,16 @@ export default function Hero() {
         {/* Decorative background */}
         <div className={styles.bg}>
           <div className={styles.fill} />
+          {/* Decorative SVG background - plain <img> (no optimization needed) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.dots} src={IMG.heroBackdropDots} alt="" />
+          <img
+            className={styles.dots}
+            src={IMG.heroBackdropDots}
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+          />
           <div className={styles.radial} />
           <div className={styles.gradient} />
         </div>
@@ -19,16 +28,13 @@ export default function Hero() {
           {/* Exam badge pills */}
           <div className={styles.badges}>
             <div className={styles.badge}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMG.jamb} alt="JAMB" />
+              <Image src={IMG.jamb} alt="JAMB" width={40} height={38} sizes="40px" />
             </div>
             <div className={styles.badge}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMG.waec} alt="WAEC" />
+              <Image src={IMG.waec} alt="WAEC" width={40} height={38} sizes="40px" />
             </div>
             <div className={styles.badge}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMG.neco} alt="NECO" />
+              <Image src={IMG.neco} alt="NECO" width={40} height={38} sizes="40px" />
             </div>
           </div>
 
@@ -68,8 +74,16 @@ export default function Hero() {
 
         {/* Hero device image */}
         <div className={styles.imageContainer}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.heroImage} src={IMG.heroImage} alt="Prepmate app" />
+          {/* LCP element - load eagerly with high priority */}
+          <Image
+            className={styles.heroImage}
+            src={IMG.heroImage}
+            alt="Prepmate app dashboard on laptop and phone"
+            width={1610}
+            height={1104}
+            priority
+            sizes="(max-width: 809px) 92vw, (max-width: 1319px) 80vw, 1152px"
+          />
         </div>
       </div>
     </section>

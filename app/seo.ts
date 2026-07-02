@@ -3,7 +3,7 @@ import { DOWNLOAD_LINKS, FAQS, IMG } from "./data";
 
 export const SITE_NAME = "Prepmate";
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://myprepmate.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.myprepmate.com"
 ).replace(/\/$/, "");
 
 export const DEFAULT_DESCRIPTION =
@@ -56,12 +56,14 @@ export function makeMetadata({
   description,
   path,
   keywords = [],
-  image = DEFAULT_OG_IMAGE,
+  image,
 }: {
   title: string;
   description: string;
   path: string;
   keywords?: string[];
+  // Optional page-specific social image. When omitted, the generated
+  // app/opengraph-image.tsx card is used automatically.
   image?: string;
 }): Metadata {
   const fullTitle = title.includes(SITE_NAME)
@@ -70,6 +72,13 @@ export function makeMetadata({
   const mergedKeywords = Array.from(
     new Set([...DEFAULT_KEYWORDS, ...keywords])
   );
+
+  const imageMeta = image
+    ? {
+        openGraph: { images: [{ url: absoluteUrl(image), alt: fullTitle }] },
+        twitter: { images: [absoluteUrl(image)] },
+      }
+    : { openGraph: {}, twitter: {} };
 
   return {
     title,
@@ -85,18 +94,13 @@ export function makeMetadata({
       url: absoluteUrl(path),
       title: fullTitle,
       description,
-      images: [
-        {
-          url: absoluteUrl(image),
-          alt: fullTitle,
-        },
-      ],
+      ...imageMeta.openGraph,
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [absoluteUrl(image)],
+      ...imageMeta.twitter,
     },
     robots: {
       index: true,
@@ -226,11 +230,11 @@ export function softwareApplicationJsonLd({
   };
 }
 
-export function faqJsonLd() {
+export function faqJsonLd(faqs: Array<{ q: string; a: string }> = FAQS) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQS.map((faq) => ({
+    mainEntity: faqs.map((faq) => ({
       "@type": "Question",
       name: faq.q,
       acceptedAnswer: {

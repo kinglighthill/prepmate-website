@@ -4,8 +4,14 @@ import Footer from "../components/Footer";
 import Testimonials from "../components/Testimonials";
 import JsonLd from "../components/JsonLd";
 import { IMG } from "../data";
-import { breadcrumbJsonLd, makeMetadata, serviceJsonLd } from "../seo";
+import {
+  breadcrumbJsonLd,
+  faqJsonLd,
+  makeMetadata,
+  serviceJsonLd,
+} from "../seo";
 import styles from "./schools.module.css";
+import seo from "../components/SeoContent.module.css";
 
 const VENLEARN_CBT_URL = "https://venlearn.com/features/cbt-offline-online";
 
@@ -45,6 +51,35 @@ const STEPS = [
   "Create students and assign exams",
   "Connect devices on LAN and start CBT",
   "Publish results for students to review",
+];
+
+const INTRO_PARAGRAPHS = [
+  "More Nigerian schools, tutorial centres and learning centres are moving from paper-based tests to computer based testing (CBT), both to mirror how exams like UTME are now conducted and to cut down on the time and cost of printing, invigilating and marking papers. Venlearn CBT gives your institution a practical way to run those exams using your own questions, on your own schedule.",
+  "The biggest hurdle for many schools is internet reliability. Venlearn CBT is built to work 100% offline over a local area network (LAN): you host the exam on one computer and students connect from other devices in the same lab or hall, with no data or public internet required. When you do want remote access, for result checking or online exams, it can be hosted online too.",
+  "From importing UTME and WASSCE question banks, to setting multiple question types, to assigning learners into exam groups and publishing results, Venlearn CBT covers the full testing workflow that schools and learning centres already follow, without unnecessary complexity.",
+];
+
+const SCHOOL_FAQS = [
+  {
+    q: "Does Venlearn CBT work without internet?",
+    a: "Yes. Venlearn CBT is designed to run completely offline over a local area network (LAN). You host the exam on one computer and students connect from other devices on the same network, so no public internet is needed during the exam. It can also be hosted online when remote access is required.",
+  },
+  {
+    q: "Can I use my school's own questions?",
+    a: "Absolutely. You can create exams using your institution's own questions, subjects and marking schemes, and you can also import existing UTME and WASSCE question banks to build realistic mock exams quickly.",
+  },
+  {
+    q: "What types of questions are supported?",
+    a: "Venlearn CBT supports multiple choice single-select, multiple choice multi-select, fill-in-the-blank, and theory questions, so you can assess a range of subjects and skills.",
+  },
+  {
+    q: "How do students see their results?",
+    a: "After an exam, results can be published for students to review, and Venlearn CBT supports online result access, reducing the manual result handling that administrators would otherwise do.",
+  },
+  {
+    q: "Who is Venlearn CBT for?",
+    a: "It is built for schools, tutorial centres and learning centres that want to conduct internal exams, mock exams and assessments in CBT mode, whether for a single class or a full hall of candidates.",
+  },
 ];
 
 const description =
@@ -95,6 +130,7 @@ export default function CBTForSchoolsPage() {
             path: "/cbt-for-schools",
             serviceUrl: VENLEARN_CBT_URL,
           }),
+          faqJsonLd(SCHOOL_FAQS),
         ]}
       />
       <Navbar />
@@ -126,6 +162,19 @@ export default function CBTForSchoolsPage() {
       </section>
 
       <div className={styles.body}>
+        <section className={seo.prose} aria-labelledby="cbt-schools-about">
+          <h2
+            id="cbt-schools-about"
+            className="h2"
+            style={{ textAlign: "left" }}
+          >
+            Computer based testing for schools and learning centres
+          </h2>
+          {INTRO_PARAGRAPHS.map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </section>
+
         <section id="features" className={styles.features}>
           <div className={styles.sectionHead}>
             <span className={styles.tag}>What Venlearn CBT Supports</span>
@@ -187,6 +236,20 @@ export default function CBTForSchoolsPage() {
             Visit Venlearn CBT
             <ArrowIcon />
           </a>
+        </section>
+
+        <section className={seo.faq} aria-labelledby="cbt-schools-faq">
+          <h2 id="cbt-schools-faq" className="h2">
+            CBT for Schools - Frequently Asked Questions
+          </h2>
+          <div className={seo.faqList}>
+            {SCHOOL_FAQS.map((faq) => (
+              <details key={faq.q} className={seo.faqItem}>
+                <summary>{faq.q}</summary>
+                <p>{faq.a}</p>
+              </details>
+            ))}
+          </div>
         </section>
 
         <Testimonials />
