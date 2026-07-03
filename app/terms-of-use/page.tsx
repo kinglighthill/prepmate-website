@@ -9,7 +9,7 @@ const description =
 export const metadata: Metadata = makeMetadata({
   title: "Terms Of Use",
   description,
-  path: "/terms",
+  path: "/terms-of-use",
   keywords: ["Prepmate terms of use", "Veracone terms"],
 });
 
@@ -87,7 +87,7 @@ export default function TermsPage() {
         data={webPageJsonLd({
           name: "Prepmate Terms Of Use",
           description,
-          path: "/terms",
+          path: "/terms-of-use",
         })}
       />
       <LegalPage

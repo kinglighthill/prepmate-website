@@ -9,7 +9,7 @@ const description =
 export const metadata: Metadata = makeMetadata({
   title: "Privacy Policy",
   description,
-  path: "/privacy",
+  path: "/privacy-policy",
   keywords: ["Prepmate privacy policy", "Veracone privacy"],
 });
 
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
         data={webPageJsonLd({
           name: "Prepmate Privacy Policy",
           description,
-          path: "/privacy",
+          path: "/privacy-policy",
         })}
       />
       <LegalPage

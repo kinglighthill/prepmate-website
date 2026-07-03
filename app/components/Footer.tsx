@@ -32,8 +32,8 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <div className={styles.legal}>
-            <Link href="/terms">Terms Of Use</Link>
-            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/terms-of-use">Terms Of Use</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
           </div>
           <p className={styles.copyright}>
            © {new Date().getFullYear()} Veracone Technologies Ltd. All rights reserved.

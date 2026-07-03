@@ -42,8 +42,8 @@ export const CANONICAL_ROUTES = [
   },
   { path: "/cbt-for-schools", priority: 0.9, changeFrequency: "monthly" },
   { path: "/lekki-headmaster", priority: 0.85, changeFrequency: "weekly" },
-  { path: "/privacy", priority: 0.35, changeFrequency: "yearly" },
-  { path: "/terms", priority: 0.35, changeFrequency: "yearly" },
+  { path: "/privacy-policy", priority: 0.35, changeFrequency: "yearly" },
+  { path: "/terms-of-use", priority: 0.35, changeFrequency: "yearly" },
 ] as const;
 
 export function absoluteUrl(path: string) {
