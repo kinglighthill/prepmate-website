@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleTagManager } from '@next/third-parties/google';
 import { IMG } from "./data";
 import JsonLd from "./components/JsonLd";
 import {
@@ -131,6 +132,7 @@ fbq('track', 'PageView');
         </noscript>
       </head>
       <body>
+        <GoogleTagManager gtmId="GTM-NF24M56G" />
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         {children}
       </body>
