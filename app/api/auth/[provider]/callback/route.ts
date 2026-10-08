@@ -58,8 +58,8 @@ async function handle(
     if (!authCode) return fail("failed");
 
     const common = {
-      app_slug: process.env.APP_SLUG ?? "prepmate",
-      country: "NG",
+      app_slug: null,
+      country: "nigeria",
       fcm_token: "",
       auth_code: authCode,
       device_info: null,
@@ -77,6 +77,8 @@ async function handle(
         ? { ...common, redirect_uri: redirectUri("google") }
         : common;
 
+    console.log("Platform header:", req.headers.get("platform"));
+
     const res = await fetch(`${API_BASE}/api/v1/signup/${provider}`, {
       method: "POST",
       headers: {
@@ -84,11 +86,13 @@ async function handle(
         x_client_app_name: process.env.APP_NAME ?? "",
         x_client_app_version: "web",
         x_client_db_version: "1",
-        platform: req.headers.get("platform") ?? "web",
+        platform: "web",
       },
       body: JSON.stringify(body),
       cache: "no-store",
     });
+
+    console.log("social signup response:", res.status, await res.text());
 
     if (res.status === 409) return fail("exists");
     if (!res.ok) return fail("failed");
