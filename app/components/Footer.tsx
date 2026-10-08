@@ -1,7 +1,9 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
 
-export default function Footer() {
+export default function Footer({ minimal = false }: { minimal?: boolean }) {
+  const minify = minimal ?? false;
+
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -22,21 +24,24 @@ export default function Footer() {
           <span className={styles.line} />
         </div>
 
-        <div className={styles.links}>
-          <Link href="/exams">Exams</Link>
-          <Link href="/jamb-cbt-practice">UTME 2027</Link>
-          <Link href="/wassce-past-questions-answers">WASSCE</Link>
-          <Link href="/cbt-for-schools">CBT for Schools</Link>
-          <Link href="/lekki-headmaster">Lekki Headmaster</Link>
-        </div>
+        {!minify && (
+          <div className={styles.links}>
+            <Link href="/exams">Exams</Link>
+            <Link href="/jamb-cbt-practice">UTME 2027</Link>
+            <Link href="/wassce-past-questions-answers">WASSCE</Link>
+            <Link href="/cbt-for-schools">CBT for Schools</Link>
+            <Link href="/lekki-headmaster">Lekki Headmaster</Link>
+          </div>
+        )}
 
-        <div className={styles.bottom}>
+        <div className={minify ? styles["bottom-minify"] : styles.bottom}>
           <div className={styles.legal}>
             <Link href="/terms-of-use">Terms Of Use</Link>
             <Link href="/privacy-policy">Privacy Policy</Link>
           </div>
           <p className={styles.copyright}>
-           © {new Date().getFullYear()} Veracone Technologies Ltd. All rights reserved.
+            © {new Date().getFullYear()} Veracone Technologies Ltd. All rights
+            reserved.
           </p>
         </div>
       </div>

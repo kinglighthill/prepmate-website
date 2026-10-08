@@ -14,7 +14,9 @@ const LINKS = [
   { href: "/cbt-for-schools", label: "CBT for Schools" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ minimal }: { minimal?: boolean }) {
+  const minify = minimal ?? false;
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -32,27 +34,31 @@ export default function Navbar() {
           />
         </Link>
 
-        <div className={styles.links}>
-          {LINKS.map((l) => (
-            <Link key={l.href} href={l.href}>
-              {l.label}
-            </Link>
-          ))}
-        </div>
+        {!minify && (
+          <div className={styles.links}>
+            {LINKS.map((l) => (
+              <Link key={l.href} href={l.href}>
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        )}
 
-        <DownloadButton variant="nav" className={styles.cta} />
+        {!minify && <DownloadButton variant="nav" className={styles.cta} />}
 
         {/* Mobile hamburger */}
-        <button
-          className={styles.burger}
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen((o) => !o)}
-        >
-          <span className={`${styles.line} ${open ? styles.line1 : ""}`} />
-          <span className={`${styles.line} ${open ? styles.line2 : ""}`} />
-          <span className={`${styles.line} ${open ? styles.line3 : ""}`} />
-        </button>
+        {!minify && (
+          <button
+            className={styles.burger}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
+          >
+            <span className={`${styles.line} ${open ? styles.line1 : ""}`} />
+            <span className={`${styles.line} ${open ? styles.line2 : ""}`} />
+            <span className={`${styles.line} ${open ? styles.line3 : ""}`} />
+          </button>
+        )}
       </div>
 
       {/* Mobile dropdown */}
