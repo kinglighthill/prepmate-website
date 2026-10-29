@@ -7,7 +7,6 @@ import { APP_LINKS } from "../lib/appLinks";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import styles from "./SignupClient.module.css";
-import { platform } from "os";
 
 const REFERRAL_RE = /^[A-Z0-9]{3,12}$/;
 
@@ -48,7 +47,11 @@ export default function SignupClient() {
   return (
     <main className={styles.main}>
       <Navbar minimal={true} />
-      <Form initialRef={initialRef} setCreated={setCreated} />
+      <Form
+        initialRef={initialRef}
+        platform={platform}
+        setCreated={setCreated}
+      />
       <Footer minimal={true} />
     </main>
   );
@@ -56,9 +59,11 @@ export default function SignupClient() {
 
 function Form({
   initialRef,
+  platform,
   setCreated,
 }: {
   initialRef: string;
+  platform: string;
   setCreated: Dispatch<SetStateAction<boolean>>;
 }) {
   const params = useSearchParams();
@@ -85,8 +90,13 @@ function Form({
     password.length >= 6 &&
     !referralInvalid;
 
-  const query =
-    referral && !referralInvalid ? `?ref=${encodeURIComponent(referral)}` : "";
+  const query = useMemo(() => {
+    const q = new URLSearchParams();
+    if (platform) q.set("platform", platform);
+    if (referral && !referralInvalid) q.set("ref", referral);
+    const s = q.toString();
+    return s ? `?${s}` : "";
+  }, [platform, referral, referralInvalid]);
 
   const onGo = (e: React.MouseEvent) => {
     if (referralInvalid || navigating) {
@@ -142,6 +152,84 @@ function Form({
           credentials.
         </p>
 
+        {showReferral ? (
+          <div className={styles.field}>
+            <label htmlFor="pm-ref">
+              {locked ? "Referral code" : "Referral code (optional)"}
+            </label>
+
+            <input
+              id="pm-ref"
+              value={referral}
+              readOnly={locked}
+              aria-readonly={locked}
+              onChange={(e) => {
+                if (!locked) {
+                  setReferral(e.target.value.toUpperCase());
+                }
+              }}
+              maxLength={12}
+              autoCapitalize="characters"
+              autoComplete="off"
+              spellCheck={false}
+              placeholder="Enter referral code"
+              aria-invalid={referralInvalid}
+            />
+
+            {!referralInvalid && (
+              <p className={styles.hint}>
+                {locked ? "Applied from your invite link. " : ""}
+              </p>
+            )}
+
+            {referralInvalid && (
+              <p className={styles.error}>Use 3 to 12 letters or numbers.</p>
+            )}
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={styles.referralToggle}
+            onClick={() => setShowReferral(true)}
+          >
+            Have a referral code? (Optional)
+          </button>
+        )}
+
+        <div className={`${styles.actions} ${styles.actionsRow}`}>
+          <a
+            className={`${styles.btn} ${styles.btnSocial}`}
+            href={`/api/auth/google/start${query}`}
+            onClick={onGo}
+            aria-disabled={navigating}
+            aria-label="Continue with Google"
+          >
+            <GoogleIcon />
+            Google
+          </a>
+
+          <a
+            className={`${styles.btn} ${styles.btnSocial}`}
+            href={`/api/auth/apple/start${query}`}
+            onClick={onGo}
+            aria-disabled={navigating}
+            aria-label="Continue with Apple"
+          >
+            <AppleIcon />
+            Apple
+          </a>
+        </div>
+
+        {errorCode && (
+          <p className={styles.error} role="alert">
+            {ERRORS[errorCode] ?? ERRORS.failed}
+          </p>
+        )}
+
+        <div className={styles.divider}>
+          <span>or sign up with email</span>
+        </div>
+
         <form className={styles.form} onSubmit={onSubmit} noValidate>
           <div className={styles.field}>
             <label htmlFor="pm-name">Full name</label>
@@ -194,47 +282,6 @@ function Form({
             )}
           </div>
 
-          {showReferral ? (
-            <div className={styles.field}>
-              <label htmlFor="pm-ref">
-                {locked ? "Referral code" : "Referral code (optional)"}
-              </label>
-
-              <input
-                id="pm-ref"
-                value={referral}
-                readOnly={locked}
-                aria-readonly={locked}
-                onChange={(e) => {
-                  if (!locked) {
-                    setReferral(e.target.value.toUpperCase());
-                  }
-                }}
-                maxLength={12}
-                autoCapitalize="characters"
-                autoComplete="off"
-                spellCheck={false}
-                placeholder="Enter referral code"
-                aria-invalid={referralInvalid}
-              />
-
-              {locked && (
-                <p className={styles.hint}>Applied from your invite link.</p>
-              )}
-
-              {referralInvalid && (
-                <p className={styles.error}>Use 3 to 12 letters or numbers.</p>
-              )}
-            </div>
-          ) : (
-            <button
-              type="button"
-              className={styles.referralToggle}
-              onClick={() => setShowReferral(true)}
-            >
-              Have a referral code? (Optional)
-            </button>
-          )}
 
           {formError && (
             <p className={styles.error} role="alert">
@@ -251,40 +298,6 @@ function Form({
           </button>
         </form>
 
-        <div className={styles.divider}>
-          <span>or continue with</span>
-        </div>
-
-        <div className={`${styles.actions} ${styles.actionsRow}`}>
-          <a
-            className={`${styles.btn} ${styles.btnSocial}`}
-            href={`/api/auth/google/start${query}`}
-            onClick={onGo}
-            aria-disabled={navigating}
-            aria-label="Continue with Google"
-          >
-            <GoogleIcon />
-            Google
-          </a>
-
-          <a
-            className={`${styles.btn} ${styles.btnSocial}`}
-            href={`/api/auth/apple/start${query}`}
-            onClick={onGo}
-            aria-disabled={navigating}
-            aria-label="Continue with Apple"
-          >
-            <AppleIcon />
-            Apple
-          </a>
-        </div>
-
-        {errorCode && (
-          <p className={styles.error} role="alert">
-            {ERRORS[errorCode] ?? ERRORS.failed}
-          </p>
-        )}
-
         <p className={styles.legal}>
           By continuing, you agree to Prepmate&apos;s{" "}
           <a href="/terms-of-use">Terms of Use</a> and confirm that you have
@@ -295,21 +308,56 @@ function Form({
   );
 }
 
+const PLATFORM_LABELS: Record<string, string> = {
+  android: "Android",
+  ios: "iOS",
+  macos: "macOS",
+  windows: "Windows",
+};
+
 function Success({ platform }: { platform: string }) {
-  const url = APP_LINKS[platform];
+  const label = PLATFORM_LABELS[platform];
+  const url = APP_LINKS[platform] ?? APP_LINKS.web;
 
   return (
-    <section className={styles.card} aria-live="polite">
-      <h1 className={styles.title}>Account created</h1>
+    <div className={styles.successBody}>
+      <section className={styles.successCard} aria-live="polite">
+        <div className={styles.successBadge} aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M5 12.5l4.5 4.5L19 7.5"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
 
-      <p className={styles.sub}>
-        Download the Prepmate app and log in with the account you just created.
-      </p>
+        <h1 className={styles.title}>Account created</h1>
 
-      <a className={`${styles.btn} ${styles.btnPrimary}`} href={url}>
-        Download Prepmate App
-      </a>
-    </section>
+        <p className={styles.sub}>
+          You&apos;re all set. Download the Prepmate app and log in with the
+          account you just created.
+        </p>
+
+        <a
+          className={`${styles.btn} ${styles.btnPrimary} ${styles.successBtn}`}
+          href={url}
+        >
+          {label
+            ? `Download for ${label}`
+            : platform === "web"
+              ? "Open Prepmate"
+              : "Download Prepmate App"}
+        </a>
+
+        <p className={styles.successNote}>
+          Use the same email and password, or the Google/Apple account you
+          signed up with.
+        </p>
+      </section>
+    </div>
   );
 }
 

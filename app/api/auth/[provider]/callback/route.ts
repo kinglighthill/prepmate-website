@@ -5,6 +5,8 @@ import {
   STATE_COOKIE,
   isProvider,
   redirectUri,
+  signupPath,
+  webDeviceInfo,
   type Provider,
 } from "../../../../lib/socialAuth";
 
@@ -25,7 +27,7 @@ const done = (path: string) => {
   res.cookies.set(STATE_COOKIE, "", { path: "/api/auth", maxAge: 0 });
   return res;
 };
-const fail = (code: string) => done(`/signup?error=${code}`);
+type Ctx = { platform?: string; ref?: string };
 
 async function handle(
   req: NextRequest,
@@ -37,17 +39,25 @@ async function handle(
     return typeof v === "string" ? v : null;
   };
 
+  let ctx: Ctx = {};
+  const fail = (code: string) => done(signupPath(ctx, { error: code }));
+
   try {
+    const raw = req.cookies.get(STATE_COOKIE)?.value;
+    const saved = raw
+      ? (JSON.parse(raw) as {
+          provider: Provider;
+          state: string;
+          ref: string;
+          platform?: string;
+        })
+      : null;
+    if (saved) ctx = { platform: saved.platform, ref: saved.ref };
+
     if (!isProvider(providerParam)) return fail("failed");
     const provider: Provider = providerParam;
 
-    const raw = req.cookies.get(STATE_COOKIE)?.value;
-    if (!raw) return fail("expired");
-    const saved = JSON.parse(raw) as {
-      provider: Provider;
-      state: string;
-      ref: string;
-    };
+    if (!saved) return fail("expired");
     if (saved.provider !== provider || saved.state !== get("state")) {
       return fail("failed");
     }
@@ -62,13 +72,13 @@ async function handle(
       country: "nigeria",
       fcm_token: "",
       auth_code: authCode,
-      device_info: null,
+      device_info: webDeviceInfo(req.headers.get("user-agent")),
       referrer_info: {
         app_install_time: null,
         instant_experience_launched: false,
         referrer_click_time: saved.ref ? Date.now() : null,
         referrer_code: saved.ref || null,
-        referrer_url: req.headers.get("platform") ?? `${SITE_URL}/signup`,
+        referrer_url: saved.platform ?? `${SITE_URL}/signup`,
       },
     };
 
@@ -77,8 +87,6 @@ async function handle(
         ? { ...common, redirect_uri: redirectUri("google") }
         : common;
 
-    console.log("Platform header:", req.headers.get("platform"));
-
     const res = await fetch(`${API_BASE}/api/v1/signup/${provider}`, {
       method: "POST",
       headers: {
@@ -86,18 +94,16 @@ async function handle(
         x_client_app_name: process.env.APP_NAME ?? "",
         x_client_app_version: "web",
         x_client_db_version: "1",
-        platform: "web",
+        platform: "website",
       },
       body: JSON.stringify(body),
       cache: "no-store",
     });
 
-    console.log("social signup response:", res.status, await res.text());
-
     if (res.status === 409) return fail("exists");
     if (!res.ok) return fail("failed");
 
-    return done("/signup?status=success");
+    return done(signupPath(ctx, { status: "success" }));
   } catch (e) {
     console.error("social signup failed:", e);
     return fail("failed");

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { API_BASE, SITE_URL, cleanRef } from "../../../lib/socialAuth";
+import { API_BASE, SITE_URL, cleanRef, webDeviceInfo } from "../../../lib/socialAuth";
 
 export const dynamic = "force-dynamic";
 
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       fcm_token: "", // no push token on web
       profile_pic_url: null,
       email_verified: false,
-      device_info: null,
+      device_info: webDeviceInfo(req.headers.get("user-agent")),
       referrer_info: {
         app_install_time: null,
         instant_experience_launched: false,
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
 
   if (!res.ok) {
     const message =
-      res.status < 500 && typeof json?.message === "string"
+      typeof json?.message === "string" && json.message
         ? json.message
         : "We couldn't create your account. Please try again.";
     return bad(message, res.status < 500 ? res.status : 502);

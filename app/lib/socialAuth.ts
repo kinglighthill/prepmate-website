@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export type Provider = "google" | "apple";
 
 export const STATE_COOKIE = "pm_oauth";
@@ -8,12 +10,52 @@ export const API_BASE = process.env.API_BASE_URL ?? "";
 export const isProvider = (p: string): p is Provider =>
   p === "google" || p === "apple";
 
+// Apple posts back to the API (the only redirect registered on the Services ID);
+// the API sees the "web." state prefix and forwards code + state to our callback.
 export const redirectUri = (p: Provider) =>
-  `${SITE_URL}/api/auth/${p}/callback`;
+  p === "apple"
+    ? `${API_BASE}/api/v1/signup/apple/callback`
+    : `${SITE_URL}/api/auth/${p}/callback`;
+
+export const APPLE_WEB_STATE_PREFIX = "web.";
 
 export const cleanRef = (v: string | null | undefined): string => {
   const c = (v ?? "").trim().toUpperCase();
   return /^[A-Z0-9]{3,12}$/.test(c) ? c : "";
+};
+
+export const cleanPlatform = (v: string | null | undefined): string => {
+  const c = (v ?? "").trim().toLowerCase();
+  return /^[a-z]{1,20}$/.test(c) ? c : "";
+};
+
+export const signupPath = (
+  ctx: { platform?: string; ref?: string },
+  extra: Record<string, string>,
+) => {
+  const q = new URLSearchParams();
+  if (ctx.platform) q.set("platform", ctx.platform);
+  if (ctx.ref) q.set("ref", ctx.ref);
+  for (const [k, v] of Object.entries(extra)) q.set(k, v);
+  return `/signup?${q.toString()}`;
+};
+
+export const webDeviceInfo = (userAgent: string | null) => {
+  const ua = userAgent ?? "";
+  const formFactor = /iPad|Tablet/i.test(ua)
+    ? "tablet"
+    : /Mobi|Android|iPhone/i.test(ua)
+      ? "phone"
+      : "desktop";
+  return {
+    api_level: 0,
+    app_version_name: "web",
+    device_id: randomUUID(),
+    form_factor: formFactor,
+    name: ua.slice(0, 255) || "web",
+    platform: "website",
+    version: "",
+  };
 };
 
 export function authorizeUrl(
