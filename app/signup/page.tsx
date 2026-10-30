@@ -1,8 +1,10 @@
 // app/signup/page.tsx
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import  SignupClient  from "../components/SignupClient";
 import { makeMetadata } from "../seo";
+import { RESULT_COOKIE, parseResult } from "../lib/signupResult";
 
 export const metadata: Metadata = makeMetadata({
   title: "Sign up",
@@ -11,10 +13,12 @@ export const metadata: Metadata = makeMetadata({
   keywords: ["Prepmate sign up"],
 });
 
-export default function SignupPage() {
+export default async function SignupPage() {
+  const result = parseResult((await cookies()).get(RESULT_COOKIE)?.value);
+
   return (
     <Suspense fallback={null}>
-      <SignupClient />
+      <SignupClient result={result} />
     </Suspense>
   );
 }

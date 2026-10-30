@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { API_BASE, SITE_URL, cleanRef, webDeviceInfo } from "../../../lib/socialAuth";
+import {
+  API_BASE,
+  SITE_URL,
+  cleanRef,
+  setResult,
+  webDeviceInfo,
+} from "../../../lib/socialAuth";
 
 export const dynamic = "force-dynamic";
 
@@ -76,5 +82,5 @@ export async function POST(req: NextRequest) {
     return bad(message, res.status < 500 ? res.status : 502);
   }
 
-  return NextResponse.json({ ok: true });
+  return setResult(NextResponse.json({ ok: true }), { status: "success" });
 }

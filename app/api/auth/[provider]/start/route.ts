@@ -8,6 +8,7 @@ import {
   cleanPlatform,
   cleanRef,
   isProvider,
+  setResult,
   signupPath,
 } from "../../../../lib/socialAuth";
 
@@ -22,9 +23,9 @@ export async function GET(
   const platform = cleanPlatform(req.nextUrl.searchParams.get("platform"));
 
   if (!isProvider(provider)) {
-    return NextResponse.redirect(
-      `${SITE_URL}${signupPath({ platform, ref }, { error: "failed" })}`,
-      303,
+    return setResult(
+      NextResponse.redirect(`${SITE_URL}${signupPath({ platform, ref })}`, 303),
+      { error: "failed" },
     );
   }
 

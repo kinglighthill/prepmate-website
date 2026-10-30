@@ -1,8 +1,9 @@
 "use client";
 
-import { Dispatch, SetStateAction, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { APP_LINKS } from "../lib/appLinks";
+import { RESULT_COOKIE, type SignupResult } from "../lib/signupResult";
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -18,7 +19,11 @@ const ERRORS: Record<string, string> = {
   failed: "We couldn't complete sign-up. Please try again.",
 };
 
-export default function SignupClient() {
+export default function SignupClient({
+  result,
+}: {
+  result: SignupResult | null;
+}) {
   const params = useSearchParams();
 
   const platform = useMemo(
@@ -31,10 +36,19 @@ export default function SignupClient() {
     [params],
   );
 
-  const success = params.get("status") === "success";
+  const resultSuccess = result !== null && "status" in result;
+  const resultError = result !== null && "error" in result ? result : null;
+
   const [created, setCreated] = useState(false);
 
-  if (success || created) {
+  // Errors show once; a success cookie is left to expire so refreshes keep it.
+  useEffect(() => {
+    if (resultError) {
+      document.cookie = `${RESULT_COOKIE}=; Max-Age=0; Path=/signup`;
+    }
+  }, [resultError]);
+
+  if (resultSuccess || created) {
     return (
       <main className={styles.main}>
         <Navbar />
@@ -50,7 +64,8 @@ export default function SignupClient() {
       <Form
         initialRef={initialRef}
         platform={platform}
-        setCreated={setCreated}
+        error={resultError}
+        onCreated={() => setCreated(true)}
       />
       <Footer minimal={true} />
     </main>
@@ -60,17 +75,15 @@ export default function SignupClient() {
 function Form({
   initialRef,
   platform,
-  setCreated,
+  error,
+  onCreated,
 }: {
   initialRef: string;
   platform: string;
-  setCreated: Dispatch<SetStateAction<boolean>>;
+  error: { error: string; message?: string } | null;
+  onCreated: () => void;
 }) {
-  const params = useSearchParams();
-
   const locked = REFERRAL_RE.test(initialRef);
-  const errorCode = params.get("error");
-  const errorMessage = params.get("message");
 
   const [referral, setReferral] = useState(locked ? initialRef : "");
   const [showReferral, setShowReferral] = useState(locked);
@@ -133,7 +146,7 @@ function Form({
       if (!res.ok) {
         setFormError(json?.message ?? ERRORS.failed);
       } else {
-        setCreated(true);
+        onCreated();
       }
     } catch {
       setFormError(ERRORS.failed);
@@ -221,9 +234,9 @@ function Form({
           </a>
         </div>
 
-        {errorCode && (
+        {error && (
           <p className={styles.error} role="alert">
-            {errorMessage || ERRORS[errorCode] || ERRORS.failed}
+            {error.message || ERRORS[error.error] || ERRORS.failed}
           </p>
         )}
 

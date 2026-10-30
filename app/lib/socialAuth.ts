@@ -1,4 +1,6 @@
 import { randomUUID } from "crypto";
+import type { NextResponse } from "next/server";
+import { RESULT_COOKIE, type SignupResult } from "./signupResult";
 
 export type Provider = "google" | "apple";
 
@@ -27,15 +29,27 @@ export const cleanPlatform = (v: string | null | undefined): string => {
   return /^[a-z]{1,20}$/.test(c) ? c : "";
 };
 
-export const signupPath = (
-  ctx: { platform?: string; ref?: string },
-  extra: Record<string, string>,
-) => {
+export const signupPath = (ctx: { platform?: string; ref?: string }) => {
   const q = new URLSearchParams();
   if (ctx.platform) q.set("platform", ctx.platform);
   if (ctx.ref) q.set("ref", ctx.ref);
-  for (const [k, v] of Object.entries(extra)) q.set(k, v);
-  return `/signup?${q.toString()}`;
+  const s = q.toString();
+  return s ? `/signup?${s}` : "/signup";
+};
+
+// Read by app/signup/page.tsx. Success lasts 10 minutes so a refresh keeps the
+// success screen; errors are cleared by SignupClient once shown.
+export const setResult = (res: NextResponse, result: SignupResult) => {
+  if ("message" in result && result.message) {
+    result = { ...result, message: result.message.slice(0, 300) };
+  }
+  res.cookies.set(RESULT_COOKIE, JSON.stringify(result), {
+    path: "/signup",
+    maxAge: "status" in result ? 600 : 60,
+    sameSite: "lax",
+    secure: SITE_URL.startsWith("https://"),
+  });
+  return res;
 };
 
 export const webDeviceInfo = (userAgent: string | null) => {

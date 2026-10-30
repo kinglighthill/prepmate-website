@@ -5,10 +5,12 @@ import {
   STATE_COOKIE,
   isProvider,
   redirectUri,
+  setResult,
   signupPath,
   webDeviceInfo,
   type Provider,
 } from "../../../../lib/socialAuth";
+import type { SignupResult } from "../../../../lib/signupResult";
 
 export const dynamic = "force-dynamic";
 
@@ -22,10 +24,10 @@ export async function POST(req: NextRequest, { params }: { params: Params }) {
   return handle(req, (await params).provider, await req.formData());
 }
 
-const done = (path: string) => {
+const done = (path: string, result: SignupResult) => {
   const res = NextResponse.redirect(`${SITE_URL}${path}`, 303);
   res.cookies.set(STATE_COOKIE, "", { path: "/api/auth", maxAge: 0 });
-  return res;
+  return setResult(res, result);
 };
 type Ctx = { platform?: string; ref?: string };
 
@@ -41,12 +43,7 @@ async function handle(
 
   let ctx: Ctx = {};
   const fail = (code: string, message?: string) =>
-    done(
-      signupPath(ctx, {
-        error: code,
-        ...(message ? { message: message.slice(0, 300) } : {}),
-      }),
-    );
+    done(signupPath(ctx), { error: code, message });
 
   try {
     const raw = req.cookies.get(STATE_COOKIE)?.value;
@@ -116,7 +113,7 @@ async function handle(
       return fail(res.status === 409 ? "exists" : "failed", message);
     }
 
-    return done(signupPath(ctx, { status: "success" }));
+    return done(signupPath(ctx), { status: "success" });
   } catch (e) {
     console.error("social signup failed:", e);
     return fail("failed");
