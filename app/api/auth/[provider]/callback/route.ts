@@ -40,7 +40,13 @@ async function handle(
   };
 
   let ctx: Ctx = {};
-  const fail = (code: string) => done(signupPath(ctx, { error: code }));
+  const fail = (code: string, message?: string) =>
+    done(
+      signupPath(ctx, {
+        error: code,
+        ...(message ? { message: message.slice(0, 300) } : {}),
+      }),
+    );
 
   try {
     const raw = req.cookies.get(STATE_COOKIE)?.value;
@@ -100,8 +106,15 @@ async function handle(
       cache: "no-store",
     });
 
-    if (res.status === 409) return fail("exists");
-    if (!res.ok) return fail("failed");
+    if (!res.ok) {
+      const json = (await res.json().catch(() => null)) as {
+        message?: string;
+      } | null;
+      console.log("social signup response:", res.status, json);
+      const message =
+        typeof json?.message === "string" ? json.message : undefined;
+      return fail(res.status === 409 ? "exists" : "failed", message);
+    }
 
     return done(signupPath(ctx, { status: "success" }));
   } catch (e) {

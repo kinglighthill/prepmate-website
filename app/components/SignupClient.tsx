@@ -70,6 +70,7 @@ function Form({
 
   const locked = REFERRAL_RE.test(initialRef);
   const errorCode = params.get("error");
+  const errorMessage = params.get("message");
 
   const [referral, setReferral] = useState(locked ? initialRef : "");
   const [showReferral, setShowReferral] = useState(locked);
@@ -222,7 +223,7 @@ function Form({
 
         {errorCode && (
           <p className={styles.error} role="alert">
-            {ERRORS[errorCode] ?? ERRORS.failed}
+            {errorMessage || ERRORS[errorCode] || ERRORS.failed}
           </p>
         )}
 
