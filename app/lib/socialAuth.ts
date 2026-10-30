@@ -37,7 +37,7 @@ export const signupPath = (ctx: { platform?: string; ref?: string }) => {
   return s ? `/signup?${s}` : "/signup";
 };
 
-// Read by app/signup/page.tsx. Success lasts 10 minutes so a refresh keeps the
+// Read by app/signup/page.tsx. Success lasts 5 minutes so a refresh keeps the
 // success screen; errors are cleared by SignupClient once shown.
 export const setResult = (res: NextResponse, result: SignupResult) => {
   if ("message" in result && result.message) {
@@ -45,7 +45,7 @@ export const setResult = (res: NextResponse, result: SignupResult) => {
   }
   res.cookies.set(RESULT_COOKIE, JSON.stringify(result), {
     path: "/signup",
-    maxAge: "status" in result ? 600 : 60,
+    maxAge: "status" in result ? 300 : 60,
     sameSite: "lax",
     secure: SITE_URL.startsWith("https://"),
   });
