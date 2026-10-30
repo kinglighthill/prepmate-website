@@ -10,8 +10,6 @@ export const API_BASE = process.env.API_BASE_URL ?? "";
 export const isProvider = (p: string): p is Provider =>
   p === "google" || p === "apple";
 
-// Apple posts back to the API (the only redirect registered on the Services ID);
-// the API sees the "web." state prefix and forwards code + state to our callback.
 export const redirectUri = (p: Provider) =>
   p === "apple"
     ? `${API_BASE}/api/v1/signup/apple/callback`
